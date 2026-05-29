@@ -9,7 +9,7 @@ Plataforma Raizes do Araguaia, um sistema digital voltado ao fortalecimento do c
 ## 1. Clonar o projeto
 
 ```bash id="jlwm4g"
-git clone URL_DO_PROJETO
+git clone https://github.com/liasunifal-bit/projeto-plataforma-ra-zes-do-Araguaia-.git
 ```
 
 ---
@@ -17,7 +17,7 @@ git clone URL_DO_PROJETO
 ## 2. Entrar na pasta do projeto
 
 ```bash id="0f0b6w"
-cd nome-do-projeto
+cd projeto-plataforma-ra-zes-do-Araguaia-
 ```
 
 ---
