@@ -1,0 +1,1 @@
+export { createWhatsAppUrl } from './whatsapp'
