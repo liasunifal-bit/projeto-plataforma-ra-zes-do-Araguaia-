@@ -22,9 +22,11 @@ Ela nao esta isolada em uma pasta propria chamada `home`; a pagina e composta po
 ### Entrada da aplicacao
 
 - `frontend/src/main.tsx`: monta o React no elemento `#root`.
-- `frontend/src/App.tsx`: envolve a aplicacao com `AppProviders` e entrega o controle ao `RouterProvider`.
-- `frontend/src/app/providers.tsx`: ponto central para providers globais. No momento apenas renderiza os filhos.
-- `frontend/src/app/router.tsx`: registra as rotas da aplicacao.
+- `frontend/src/routes/router.tsx`: registra o roteamento principal usado pela aplicacao.
+- `frontend/src/routes/error/ErrorBoundary.tsx`: exibe tela de erro para falhas nas rotas.
+- `frontend/src/pages/Home.tsx`: ponto de entrada lazy-loaded da rota `/`, renderizando `HomePage`.
+- `frontend/src/app/providers.tsx`: ponto reservado para providers globais. No momento apenas renderiza os filhos.
+- `frontend/src/app/router.tsx`: roteador alternativo preservado para as rotas completas da aplicacao.
 - `frontend/src/app/routes.ts`: centraliza os caminhos usados pela aplicacao.
 
 ### Layout da Home
@@ -46,12 +48,13 @@ Ela nao esta isolada em uma pasta propria chamada `home`; a pagina e composta po
 ## Fluxo de Funcionamento
 
 1. `main.tsx` inicializa a aplicacao React.
-2. `App.tsx` carrega `AppProviders` e `RouterProvider`.
-3. `appRouter` associa a rota `/` ao componente `HomePage`.
-4. `HomePage` chama `useProducts()` para carregar os produtos.
-5. `useProducts()` executa `listProducts()` ao montar a tela.
-6. `listProducts()` retorna a lista mockada de produtos.
-7. A Home renderiza:
+2. `main.tsx` entrega o controle ao `RouterProvider` usando `routes/router.tsx`.
+3. `routes/router.tsx` carrega `pages/Home.tsx` de forma lazy na rota `/`.
+4. `pages/Home.tsx` renderiza `HomePage`.
+5. `HomePage` chama `useProducts()` para carregar os produtos.
+6. `useProducts()` executa `listProducts()` ao montar a tela.
+7. `listProducts()` retorna a lista mockada de produtos.
+8. A Home renderiza:
    - cabecalho;
    - bloco de categorias;
    - atalhos para calendario e mapa;
@@ -134,7 +137,7 @@ O botao de WhatsApp em cada produto:
 
 ## Rotas Usadas Pela Home
 
-As rotas restauradas em `frontend/src/app/routes.ts` sao:
+As rotas documentadas em `frontend/src/app/routes.ts` sao:
 
 - `/`
 - `/catalogo`
@@ -201,7 +204,7 @@ Resultado:
 
 Foram identificadas duas quebras que impediam validar a Home por completo:
 
-1. `frontend/src/App.tsx` importava `./app/router` e `./app/providers`, mas esses arquivos nao existiam.
+1. O roteamento da branch da Home precisava ser conciliado com a organizacao mais recente da `main`, que usa `frontend/src/routes/router.tsx` e `frontend/src/pages/Home.tsx`.
 2. `frontend/src/lib/router/navigation.ts` e `frontend/src/types/navigation.ts` dependiam de `@/app/routes`, tambem ausente.
 
 Arquivos adicionados:
@@ -209,6 +212,7 @@ Arquivos adicionados:
 - `frontend/src/app/routes.ts`
 - `frontend/src/app/router.tsx`
 - `frontend/src/app/providers.tsx`
+- `frontend/src/pages/Home.tsx`
 
 Tambem foi ajustado:
 
@@ -228,4 +232,3 @@ Tambem foi ajustado:
 - Criar testes end-to-end com Playwright para cliques em categorias, atalhos, navegacao inferior e CTA de venda.
 - Substituir os dados mockados por consulta real ao backend/Supabase quando a API estiver pronta.
 - Implementar as paginas de destino que ainda estao como placeholder.
-
