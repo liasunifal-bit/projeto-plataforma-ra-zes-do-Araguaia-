@@ -1,0 +1,6 @@
+export { appCategories, appCategoryBySlug } from '@/features/categories'
+export type { AppCategoryModule, AppCategorySlug } from '@/features/categories'
+export * from './components'
+export * from './hooks'
+export * from './services'
+export type { ProductSummary } from './types'

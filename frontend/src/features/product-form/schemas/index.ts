@@ -1,0 +1,1 @@
+export { productFormRequiredFields } from './productFormSchema'

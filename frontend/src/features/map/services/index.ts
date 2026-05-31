@@ -1,0 +1,1 @@
+export { brejoGrandeCoordinates } from './mapService'

@@ -1,0 +1,1 @@
+export { usePixQRCode } from './usePixQRCode'
