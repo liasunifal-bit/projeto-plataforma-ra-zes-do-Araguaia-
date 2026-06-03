@@ -1,3 +1,3 @@
-export function AddProductPage() {
+export default function AddProductPage() {
   return <main>Cadastrar produto</main>
 }

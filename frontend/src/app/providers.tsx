@@ -1,8 +1,13 @@
+import { type ReactNode } from 'react'
+
 type AppProvidersProps = {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function AppProviders({ children }: AppProvidersProps) {
-  return children
+  return (
+    <>
+      {children}
+    </>
+  )
 }
-
