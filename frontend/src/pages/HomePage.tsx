@@ -6,7 +6,7 @@ import { BottomNav } from '@/app/layout/BottomNav'
 import { CategoryGrid, ProductGrid } from '@/features/catalog'
 import { useProducts } from '@/features/catalog/hooks/useProducts'
 
-export function HomePage() {
+export default function HomePage() {
   const products = useProducts()
 
   return (
