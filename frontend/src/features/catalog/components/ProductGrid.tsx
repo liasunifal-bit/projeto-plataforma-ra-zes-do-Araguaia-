@@ -3,23 +3,30 @@ import type { ProductSummary } from '../types'
 
 type ProductGridProps = {
   products: ProductSummary[]
+  emptyMessage?: string
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
+export function ProductGrid({
+  products,
+  emptyMessage = 'Nenhum produto encontrado.',
+}: ProductGridProps) {
   if (products.length === 0) {
     return (
-      <div className="col-span-2 py-10 flex flex-col items-center justify-center text-foreground/35 gap-2">
-        <span className="text-4xl select-none">🌿</span>
-        <p className="text-sm font-medium">Nenhum produto encontrado.</p>
-      </div>
+      <section
+        aria-live="polite"
+        className="col-span-2 flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border/40 bg-white py-10 text-foreground/45"
+      >
+        <p className="text-sm font-bold text-foreground">Sem produtos por aqui</p>
+        <p className="max-w-64 text-center text-xs font-medium leading-relaxed">{emptyMessage}</p>
+      </section>
     )
   }
 
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <section aria-label="Lista de produtos" className="grid grid-cols-2 gap-4">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
-    </div>
+    </section>
   )
 }
