@@ -6,6 +6,9 @@ export type ProductSummary = {
   category: AppCategorySlug
   price: number
   imageUrl?: string
+  imageAlt?: string
+  description?: string
+  stockStatus?: 'available' | 'limited' | 'unavailable'
   hasAudio?: boolean
   audioDuration?: string
   sellerName: string
