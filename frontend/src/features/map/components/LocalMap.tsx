@@ -2,8 +2,8 @@ import { MapContainer, TileLayer, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { brejoGrandeCoordinates, brejoGrandeBounds, MAP_ZOOM } from '../services/mapService';
-import { mockSellers } from '../../sellers/mocks';
-import { SellerMarker } from './SellerMarker';
+import { mockVendedores } from '../services/mockVendedores';
+import { VendedorMarker } from './VendedorMarker';
 import { RecenterButton } from './RecenterButton';
 import { SatelliteToggle } from './SatelliteToggle';
 import { useEffect, useState } from 'react';
@@ -22,16 +22,16 @@ function MapInitializer({ center }: { center: [number, number] }) {
 }
 
 // Lógica de flyTo fluido quando uma categoria for clicada
-function CategoryCentering({ sellers, defaultCenter }: { sellers: typeof mockSellers; defaultCenter: [number, number] }) {
+function CategoryCentering({ vendedores, defaultCenter }: { vendedores: typeof mockVendedores; defaultCenter: [number, number] }) {
   const map = useMap();
   useEffect(() => {
-    if (sellers.length > 0) {
-      const bounds = L.latLngBounds(sellers.map(s => [s.latitude, s.longitude]));
+    if (vendedores.length > 0) {
+      const bounds = L.latLngBounds(vendedores.map(v => [v.lat, v.lng]));
       map.flyToBounds(bounds, { animate: true, duration: 1.5, padding: [50, 50], maxZoom: MAP_ZOOM.default + 1 });
     } else {
       map.flyTo(defaultCenter, MAP_ZOOM.default, { animate: true, duration: 1.5 });
     }
-  }, [sellers, map, defaultCenter]);
+  }, [vendedores, map, defaultCenter]);
   return null;
 }
 
@@ -46,11 +46,11 @@ export function LocalMap({
     brejoGrandeCoordinates.longitude,
   ];
 
-  // Filtrar sellers pela categoria ativa
-  const filteredSellers =
+  // Filtrar vendedores pela categoria ativa
+  const filteredVendedores =
     activeCategory === 'todos'
-      ? mockSellers
-      : mockSellers.filter((seller) => seller.category === activeCategory);
+      ? mockVendedores
+      : mockVendedores.filter((v) => v.categoria.toLowerCase() === activeCategory);
 
   return (
     <div className="w-full flex-1 h-full bg-muted/20 rounded-2xl overflow-hidden shadow-inner relative">
@@ -94,11 +94,11 @@ export function LocalMap({
         <MapInitializer center={defaultCenter} />
 
         {/* Navegação Fluida entre filtros */}
-        <CategoryCentering sellers={filteredSellers} defaultCenter={defaultCenter} />
+        <CategoryCentering vendedores={filteredVendedores} defaultCenter={defaultCenter} />
 
-        {/* Renderizando sellers filtrados */}
-        {filteredSellers.map((seller) => (
-          <SellerMarker key={seller.id} seller={seller} />
+        {/* Renderizando vendedores filtrados dinamicamente via .map() */}
+        {filteredVendedores.map((vendedor) => (
+          <VendedorMarker key={vendedor.id} vendedor={vendedor} />
         ))}
 
         {/* Botão de recentralizar */}
