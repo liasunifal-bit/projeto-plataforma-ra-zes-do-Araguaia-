@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Validador de Acesso Mobile — Raízes do Araguaia</title>
+  <!-- Google Fonts & Tailwind CDN -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            primary: '#2D5A27',
+            secondary: '#1E5F8B',
+            accent: '#E8732E',
+            background: '#12130F',
+            card: '#1C1E16',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #12130F 0%, #1A1D13 100%);
+    }
+    .glass {
+      background: rgba(28, 30, 22, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(224, 213, 197, 0.08);
+    }
+  </style>
+</head>
+<body class="min-h-screen text-gray-200 flex flex-col items-center justify-center p-4 sm:p-8">
+
+  <div class="w-full max-w-xl glass rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
+    <!-- Efeitos de Luz Decorativa -->
+    <div class="absolute -top-20 -left-20 w-48 h-48 rounded-full bg-primary/20 blur-3xl"></div>
+    <div class="absolute -bottom-20 -right-20 w-48 h-48 rounded-full bg-accent/10 blur-3xl"></div>
+
+    <!-- Cabeçalho -->
+    <div class="text-center mb-8 relative z-10">
+      <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-3">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        Servidor Local Ativo
+      </div>
+      <h1 class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+        Conectar Celular ao Projeto
+      </h1>
+      <p class="text-gray-400 text-sm mt-2">
+        Plataforma Comunitária Raízes do Araguaia
+      </p>
+    </div>
+
+    <!-- Painel de Conexão -->
+    <div class="grid grid-cols-1 sm:grid-cols-12 gap-6 items-center relative z-10">
+      
+      <!-- QR Code -->
+      <div class="sm:col-span-6 flex flex-col items-center justify-center bg-white/5 rounded-2xl p-4 border border-white/5 shadow-inner">
+        <img 
+          id="qrCode" 
+          src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=http://192.168.3.182:5173&color=1e293b" 
+          alt="QR Code de Acesso"
+          class="w-44 h-44 rounded-lg bg-white p-2 shadow-md hover:scale-105 transition-transform duration-200"
+        />
+        <p class="text-xs text-gray-400 mt-3 text-center">
+          Escaneie com a câmera do celular
+        </p>
+      </div>
+
+      <!-- Informações de Endereço -->
+      <div class="sm:col-span-6 space-y-4">
+        <div>
+          <label class="block text-xs uppercase tracking-wider text-primary-400 font-bold mb-1">URL Local Encontrada</label>
+          <a 
+            href="http://192.168.3.182:5173" 
+            target="_blank" 
+            class="text-emerald-400 hover:text-emerald-300 font-mono text-base break-all font-semibold flex items-center gap-1.5 group"
+          >
+            http://192.168.3.182:5173
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Validador Interativo de Conexão -->
+        <div class="bg-black/25 rounded-xl p-4 border border-white/5">
+          <h3 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">Testar Acesso Local</h3>
+          <button 
+            onclick="testConnection()" 
+            id="btnTest"
+            class="w-full bg-primary hover:bg-emerald-800 text-white font-bold py-2 px-4 rounded-lg text-sm transition-all duration-200 shadow-lg active:scale-95"
+          >
+            Verificar Conectividade
+          </button>
+          <div id="testResult" class="text-xs mt-2 text-center hidden"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Instruções Passo a Passo -->
+    <div class="mt-8 pt-6 border-t border-white/5 space-y-3 relative z-10">
+      <h2 class="text-sm font-bold uppercase tracking-wider text-emerald-400 mb-1">Como garantir que funcione?</h2>
+      
+      <ol class="space-y-3 text-xs sm:text-sm text-gray-400 list-decimal list-inside pl-1">
+        <li class="leading-relaxed">
+          <strong class="text-white">Conexão na mesma rede WiFi:</strong> O celular e o computador precisam estar no mesmo roteador (<code class="text-emerald-400 font-mono">WiFi: 192.168.3.x</code>).
+        </li>
+        <li class="leading-relaxed">
+          <strong class="text-white">Servidor em Modo Host:</strong> Se o QR code falhar, reinicie o servidor no computador expondo o IP na rede com o comando:
+          <pre class="bg-black/35 text-amber-400 font-mono p-2 rounded-lg mt-1 text-xs select-all">npm run dev -- --host</pre>
+        </li>
+        <li class="leading-relaxed">
+          <strong class="text-white">Liberar o Firewall:</strong> Certifique-se de que o Windows Defender ou o antivírus não esteja bloqueando conexões de rede locais na porta <code class="text-emerald-400 font-mono">5173</code>.
+        </li>
+      </ol>
+    </div>
+
+  </div>
+
+  <script>
+    async function testConnection() {
+      const resultDiv = document.getElementById('testResult');
+      const btn = document.getElementById('btnTest');
+      
+      resultDiv.className = "text-xs mt-2 text-center text-amber-400";
+      resultDiv.innerText = "Testando conexão com o servidor local...";
+      resultDiv.classList.remove('hidden');
+      btn.disabled = true;
+
+      try {
+        // Tenta buscar um asset estático leve do Vite para testar CORS e conectividade
+        const response = await fetch('http://192.168.3.182:5173/', { 
+          mode: 'no-cors',
+          signal: AbortSignal.timeout(3000) 
+        });
+        
+        resultDiv.className = "text-xs mt-2 text-center text-emerald-400 font-bold bg-emerald-500/10 p-2 rounded-lg";
+        resultDiv.innerText = "✓ Conexão local bem-sucedida! O celular conseguirá carregar a página.";
+      } catch (error) {
+        resultDiv.className = "text-xs mt-2 text-center text-rose-400 font-bold bg-rose-500/10 p-2 rounded-lg";
+        resultDiv.innerText = "✗ Servidor inacessível pelo IP local. Certifique-se de usar 'npm run dev -- --host' no terminal.";
+      } finally {
+        btn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
