@@ -126,12 +126,32 @@
 
 /* ─────────────── ESTILIZAÇÃO DO MAPA OFFLINE (FLAVIO) ─────────────── */
 /* Filtro CSS aplicado apenas aos tiles de mapa estáticos, sem alterar marcadores ou popups */
-.leaflet-tile-pane {
+.map-tiles-customizada .leaflet-tile-pane {
   filter: sepia(0.5) hue-rotate(10deg) saturate(1.1) contrast(0.95) brightness(0.97);
 }
 
 /* Ajuste do mapa no Modo Escuro (Dark Mode) */
-.dark .leaflet-tile-pane {
+.dark .map-tiles-customizada .leaflet-tile-pane {
   filter: invert(1) hue-rotate(180deg) saturate(0.6) brightness(0.8) contrast(1.1) sepia(0.15);
+}
+
+/* ─────────────── ANIMAÇÕES DO MAPA (PIN) ─────────────── */
+@keyframes map-pin-pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 currentColor;
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 15px transparent;
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 transparent;
+  }
+}
+
+.map-pin-pulse {
+  animation: map-pin-pulse 2s infinite ease-out;
 }
 

@@ -1,4 +1,5 @@
 import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { brejoGrandeCoordinates, brejoGrandeBounds, MAP_ZOOM } from '../services/mapService';
 import { mockSellers } from '../../sellers/mocks';
@@ -17,6 +18,20 @@ function MapInitializer({ center }: { center: [number, number] }) {
   useEffect(() => {
     map.setView(center, MAP_ZOOM.default);
   }, [map, center]);
+  return null;
+}
+
+// Lógica de flyTo fluido quando uma categoria for clicada
+function CategoryCentering({ sellers, defaultCenter }: { sellers: typeof mockSellers; defaultCenter: [number, number] }) {
+  const map = useMap();
+  useEffect(() => {
+    if (sellers.length > 0) {
+      const bounds = L.latLngBounds(sellers.map(s => [s.latitude, s.longitude]));
+      map.flyToBounds(bounds, { animate: true, duration: 1.5, padding: [50, 50], maxZoom: MAP_ZOOM.default + 1 });
+    } else {
+      map.flyTo(defaultCenter, MAP_ZOOM.default, { animate: true, duration: 1.5 });
+    }
+  }, [sellers, map, defaultCenter]);
   return null;
 }
 
@@ -39,6 +54,9 @@ export function LocalMap({
 
   return (
     <div className="w-full flex-1 h-full bg-muted/20 rounded-2xl overflow-hidden shadow-inner relative">
+      {/* Vignette effect (sombra interna) via Tailwind */}
+      <div className="pointer-events-none absolute inset-0 z-[2000] shadow-[inset_0_0_20px_rgba(0,0,0,0.15)] rounded-2xl"></div>
+      
       <MapContainer
         center={defaultCenter}
         zoom={MAP_ZOOM.default}
@@ -74,6 +92,9 @@ export function LocalMap({
 
         {/* Forçar recentralização na abertura da aba */}
         <MapInitializer center={defaultCenter} />
+
+        {/* Navegação Fluida entre filtros */}
+        <CategoryCentering sellers={filteredSellers} defaultCenter={defaultCenter} />
 
         {/* Renderizando sellers filtrados */}
         {filteredSellers.map((seller) => (
