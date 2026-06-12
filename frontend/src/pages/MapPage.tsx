@@ -6,17 +6,11 @@ import { MapCategoryFilters } from '../features/map/components/MapCategoryFilter
 
 export default function MapPage() {
   const [activeCategory, setActiveCategory] = useState('todos');
-  const [isFullscreen, setIsFullscreen] = useState(false);
-
-  // Define as classes do contêiner dinamicamente com base no estado de tela cheia
-  const containerClasses = isFullscreen
-    ? 'fixed inset-0 z-[1000] w-screen h-[100dvh] bg-background text-foreground flex flex-col overflow-hidden'
-    : 'w-full max-w-md md:max-w-lg h-[100dvh] bg-background text-foreground flex flex-col relative shadow-2xl md:border-x md:border-border/20 overflow-hidden';
 
   return (
     <div className="min-h-screen w-full bg-muted/40 flex justify-center overflow-hidden">
-      {/* Container "Celular Virtual" PWA - Expande para tela cheia condicionalmente */}
-      <div className={containerClasses}>
+      {/* Container "Celular Virtual" PWA restrito e centralizado */}
+      <div className="w-full max-w-md md:max-w-lg h-[100dvh] bg-background text-foreground flex flex-col relative shadow-2xl md:border-x md:border-border/20 overflow-hidden">
         {/* ─────────────── CABEÇALHO ─────────────── */}
         <Header title="Mapa do Araguaia" />
 
@@ -28,11 +22,9 @@ export default function MapPage() {
             onCategoryChange={setActiveCategory}
           />
 
-          {/* Mapa com controle de tela cheia */}
+          {/* Mapa */}
           <LocalMap
             activeCategory={activeCategory}
-            isFullscreen={isFullscreen}
-            onToggleFullscreen={() => setIsFullscreen(!isFullscreen)}
           />
         </main>
 

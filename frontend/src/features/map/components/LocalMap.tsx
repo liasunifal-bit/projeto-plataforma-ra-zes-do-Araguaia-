@@ -4,13 +4,11 @@ import { brejoGrandeCoordinates, brejoGrandeBounds, MAP_ZOOM } from '../services
 import { mockSellers } from '../../sellers/mocks';
 import { SellerMarker } from './SellerMarker';
 import { RecenterButton } from './RecenterButton';
-import { FullscreenButton } from './FullscreenButton';
-import { useEffect } from 'react';
+import { SatelliteToggle } from './SatelliteToggle';
+import { useEffect, useState } from 'react';
 
 type LocalMapProps = {
   activeCategory?: string;
-  isFullscreen?: boolean;
-  onToggleFullscreen?: () => void;
 };
 
 // Componente para garantir a centralização no centro urbano toda vez que o mapa for aberto/montado
@@ -24,9 +22,9 @@ function MapInitializer({ center }: { center: [number, number] }) {
 
 export function LocalMap({
   activeCategory = 'todos',
-  isFullscreen = false,
-  onToggleFullscreen,
 }: LocalMapProps) {
+  const [isSatellite, setIsSatellite] = useState(false);
+
   // Coordenadas de Brejo Grande do Araguaia como centro padrão
   const defaultCenter: [number, number] = [
     brejoGrandeCoordinates.latitude,
@@ -49,16 +47,30 @@ export function LocalMap({
         maxBounds={brejoGrandeBounds}
         maxBoundsViscosity={1.0}
         scrollWheelZoom
-        className="w-full h-full z-0"
+        zoomControl={false}
+        attributionControl={false}
+        className={`w-full h-full z-0 ${!isSatellite ? 'map-tiles-customizada' : ''}`}
       >
-        {/* Camada Estática de Tiles Offline (Self-Hosted via public/tiles/) */}
-        <TileLayer
-          attribution='&copy; Mapa local offline &mdash; Raízes do Araguaia'
-          url="/tiles/{z}/{x}/{y}.png"
-          minZoom={MAP_ZOOM.min}
-          maxZoom={MAP_ZOOM.max}
-          bounds={brejoGrandeBounds}
-        />
+        {/* Camada Dinâmica de Tiles (Satélite ou Offline) */}
+        {isSatellite ? (
+          <TileLayer
+            key="satellite"
+            attribution='&copy; <a href="https://www.esri.com/">Esri</a> &mdash; Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            url="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
+            minZoom={MAP_ZOOM.min}
+            maxZoom={MAP_ZOOM.max}
+            bounds={brejoGrandeBounds}
+          />
+        ) : (
+          <TileLayer
+            key="offline"
+            attribution='&copy; Mapa local offline &mdash; Raízes do Araguaia'
+            url="/tiles/{z}/{x}/{y}.png"
+            minZoom={MAP_ZOOM.min}
+            maxZoom={MAP_ZOOM.max}
+            bounds={brejoGrandeBounds}
+          />
+        )}
 
         {/* Forçar recentralização na abertura da aba */}
         <MapInitializer center={defaultCenter} />
@@ -71,10 +83,8 @@ export function LocalMap({
         {/* Botão de recentralizar */}
         <RecenterButton />
 
-        {/* Botão de tela cheia */}
-        {onToggleFullscreen && (
-          <FullscreenButton isFullscreen={isFullscreen} onToggle={onToggleFullscreen} />
-        )}
+        {/* Botão de satélite */}
+        <SatelliteToggle isSatellite={isSatellite} onToggle={() => setIsSatellite(!isSatellite)} />
       </MapContainer>
     </div>
   );
