@@ -1,1 +1,26 @@
 node_modules/
+.env
+.env.local
+
+# ─── Arquivos utilitários / scripts locais ───
+extrair_mapa.js
+validador.html
+
+# ─── Pastas de contexto e configuração de IA ───
+.agents/
+.specs/
+REGRAS DO PROJETO/
+
+# ─── Arquivos de configuração de ferramentas de IA ───
+.cursorignore
+.geminiignore
+.semgrepignore
+
+# ─── Documentação interna de processo (não é código-fonte) ───
+docs/
+
+# ─── Build de produção (gerado pelo Vite) ───
+frontend/dist/
+
+# ─── Tiles do mapa (gerados localmente pelo extrair_mapa.js) ───
+frontend/public/tiles/

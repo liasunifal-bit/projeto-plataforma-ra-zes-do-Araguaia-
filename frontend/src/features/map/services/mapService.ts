@@ -5,8 +5,8 @@ export const brejoGrandeCoordinates = {
 
 // Zoom mínimo e máximo conforme exportação do MOBAC
 export const MAP_ZOOM = {
-  min: 13,
-  max: 18,
+  min: 12,
+  max: 19,
   default: 14,
 } as const;
 
