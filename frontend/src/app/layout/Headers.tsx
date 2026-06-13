@@ -1,3 +1,9 @@
+/**
+ * Header usado exclusivamente na HomePage.
+ * Exibe o logo da marca
+ * Não possui navegação de volta — é o ponto de entrada da aplicação.
+ */
+
 import logo from '@/assets/logo.png'
 
 type HeaderProps = {

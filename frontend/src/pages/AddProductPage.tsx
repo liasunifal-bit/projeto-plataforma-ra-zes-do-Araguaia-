@@ -1,3 +1,5 @@
+import { PageHeader } from '@/app/layout/PageHeader'
+
 export default function AddProductPage() {
-  return <main>Cadastrar produto</main>
+  return <main><PageHeader title="Cadastrar Produto" />Cadastrar produto</main>
 }
