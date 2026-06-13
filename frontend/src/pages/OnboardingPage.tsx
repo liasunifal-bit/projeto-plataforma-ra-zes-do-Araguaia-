@@ -1,3 +1,5 @@
+import { PageHeader } from '@/app/layout/PageHeader'
+
 export default function OnboardingPage() {
-  return <main>Boas-vindas</main>
+  return <main><PageHeader title="Boas-vindas" />Boas-vindas</main>
 }

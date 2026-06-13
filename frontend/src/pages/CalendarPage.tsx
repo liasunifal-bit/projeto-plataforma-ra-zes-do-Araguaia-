@@ -1,3 +1,5 @@
+import { PageHeader } from '@/app/layout/PageHeader'
+
 export default function CalendarPage() {
-  return <main>Calendario</main>
+  return <main><PageHeader title="Calendário" />Calendario</main>
 }

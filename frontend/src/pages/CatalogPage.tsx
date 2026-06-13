@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 
 import { AppShell } from '@/app/layout/AppShell'
 import { BottomNav } from '@/app/layout/BottomNav'
-import { Header } from '@/app/layout/Headers'
+import { PageHeader } from '@/app/layout/PageHeader'
 import type { AppCategorySlug } from '@/features/categories'
 import {
   CategoryFilter,
@@ -28,7 +28,7 @@ export default function CatalogPage() {
 
   return (
     <AppShell>
-      <Header title="Catalogo" />
+      <PageHeader title="Catálogo" />
 
       <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 pt-6">
         <header className="flex flex-col gap-2">
