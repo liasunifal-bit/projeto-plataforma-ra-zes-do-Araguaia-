@@ -1,1 +1,7 @@
-export { listProducts } from './productService'
+export {
+  attachProductMedia,
+  createProduct,
+  getProductById,
+  listProducts,
+} from './productService'
+export type { CreateProductInput } from './productService'
