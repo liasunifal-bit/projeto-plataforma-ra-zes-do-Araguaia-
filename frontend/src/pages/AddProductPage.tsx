@@ -2,7 +2,8 @@ import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 
 import { AppShell } from '@/app/layout/AppShell'
-import { Header } from '@/app/layout/Headers'
+import { BottomNav } from '@/app/layout/BottomNav'
+import { PageHeader } from '@/app/layout/PageHeader'
 import { useAuth } from '@/features/auth'
 import { attachProductMedia, createProduct } from '@/features/catalog'
 import type { AppCategorySlug } from '@/features/categories'
@@ -16,10 +17,13 @@ export default function AddProductPage() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+
+    const formElement = event.currentTarget
+
     setIsSubmitting(true)
     setMessage(null)
 
-    const form = new FormData(event.currentTarget)
+    const form = new FormData(formElement)
 
     try {
       const existingSeller = await getMySellerProfile()
@@ -65,7 +69,7 @@ export default function AddProductPage() {
         })
       }
 
-      event.currentTarget.reset()
+      formElement.reset()
       setMessage('Produto publicado com sucesso.')
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Nao foi possivel cadastrar o produto.')
@@ -74,25 +78,34 @@ export default function AddProductPage() {
     }
   }
 
-  if (isLoading) return <main className="p-5">Carregando...</main>
+  if (isLoading) {
+    return (
+      <AppShell>
+        <PageHeader title="Cadastrar produto" />
+        <main className="flex-1 p-5">Carregando...</main>
+        <BottomNav />
+      </AppShell>
+    )
+  }
 
   if (!user) {
     return (
       <AppShell>
-        <Header title="Cadastrar produto" />
+        <PageHeader title="Cadastrar produto" />
         <main className="flex flex-1 flex-col gap-4 p-5">
           <p>Entre ou crie uma conta antes de publicar um produto.</p>
           <Link to="/boas-vindas" className="rounded-xl bg-primary p-3 text-center font-bold text-white">
             Acessar minha conta
           </Link>
         </main>
+        <BottomNav />
       </AppShell>
     )
   }
 
   return (
     <AppShell>
-      <Header title="Cadastrar produto" />
+      <PageHeader title="Cadastrar produto" />
       <main className="flex-1 overflow-y-auto p-5">
         <form onSubmit={handleSubmit} className="mx-auto flex max-w-xl flex-col gap-4">
           <h1 className="font-heading text-2xl font-bold">Novo anuncio</h1>
@@ -124,6 +137,7 @@ export default function AddProductPage() {
           {message && <p role="status" className="rounded-xl bg-muted p-3 text-sm">{message}</p>}
         </form>
       </main>
+      <BottomNav />
     </AppShell>
   )
 }

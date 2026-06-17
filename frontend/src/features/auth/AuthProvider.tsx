@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const { data } = await client
         .from('profiles')
         .select('role')
-        .eq('id', nextSession.user.id)
+        .eq('user_id', nextSession.user.id)  // corrigido para usar nextSession.user.id
         .single()
 
       setRole((data?.role as UserRole | undefined) ?? 'seller')
