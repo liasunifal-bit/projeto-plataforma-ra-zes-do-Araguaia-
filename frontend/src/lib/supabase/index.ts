@@ -1,3 +1,10 @@
-export { supabaseClientPlaceholder } from './client'
+export { isSupabaseConfigured, requireSupabase, supabase } from './client'
 export { supabaseTableNames } from './queries'
-export type { Database } from './database.types'
+export type {
+  AppRole,
+  ContentStatus,
+  ProductRow,
+  ProfileRow,
+  SellerProfileRow,
+  StockStatus,
+} from './database.types'
