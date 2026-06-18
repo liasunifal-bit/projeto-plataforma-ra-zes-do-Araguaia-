@@ -1,4 +1,6 @@
 import { useMemo, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
+import { Plus } from 'lucide-react'
 
 import { AppShell } from '@/app/layout/AppShell'
 import { BottomNav } from '@/app/layout/BottomNav'
@@ -73,7 +75,19 @@ export default function CalendarPage() {
 
   return (
     <AppShell>
-      <PageHeader title="Agenda" />
+      <PageHeader
+        title="Agenda"
+        action={
+          <Link
+            to="/cadastrar-evento"
+            className="flex items-center gap-1 bg-white/20 hover:bg-white/30 text-white rounded-full px-3 py-1.5 text-xs font-bold transition-all active:scale-95 shadow-sm"
+            aria-label="Cadastrar novo evento"
+          >
+            <Plus size={14} strokeWidth={3} />
+            <span>Divulgar</span>
+          </Link>
+        }
+      />
       
       <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 pt-6">
         {/* Bloco de Introdução */}

@@ -6,7 +6,7 @@ export async function listEvents(): Promise<CommunityEvent[]> {
 
   const { data, error } = await supabase
     .from('events')
-    .select('id, title, starts_at, ends_at, location_name, description')
+    .select('id, title, starts_at, ends_at, location_name, description, latitude, longitude')
     .eq('status', 'published')
     .order('starts_at')
 
@@ -18,6 +18,8 @@ export async function listEvents(): Promise<CommunityEvent[]> {
     endsAt: event.ends_at ?? undefined,
     location: event.location_name,
     description: event.description ?? undefined,
+    latitude: event.latitude ?? undefined,
+    longitude: event.longitude ?? undefined,
   }))
 }
 

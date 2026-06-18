@@ -5,4 +5,7 @@ export type CommunityEvent = {
   location: string
   description?: string
   endsAt?: string
+  latitude?: number
+  longitude?: number
 }
+
