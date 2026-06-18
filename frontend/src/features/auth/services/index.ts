@@ -1,1 +1,9 @@
-export { getCurrentUserRole } from './authService'
+export {
+  getCurrentUser,
+  getCurrentUserRole,
+  requestPasswordReset,
+  signIn,
+  signInWithGoogle,
+  signOut,
+  signUp,
+} from './authService'

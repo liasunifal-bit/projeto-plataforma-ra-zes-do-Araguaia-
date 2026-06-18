@@ -8,5 +8,5 @@ export const appRoutes = {
   school: '/escolinha',
   addProduct: '/cadastrar-produto',
   onboarding: '/boas-vindas',
+  userDashboard: '/minha-conta',
 } as const
-

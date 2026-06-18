@@ -1,7 +1,18 @@
-import type { UserRole } from '../types'
+import { useEffect, useState } from 'react'
+
+import { getCurrentUser } from '../services'
+import type { AuthUser } from '../types'
 
 export function useAuth() {
+  const [user, setUser] = useState<AuthUser | null>(() => getCurrentUser())
+
+  useEffect(() => {
+    setUser(getCurrentUser())
+  }, [])
+
   return {
-    role: 'visitor' as UserRole,
+    isLoading: false,
+    role: user?.role ?? 'visitor',
+    user,
   }
 }

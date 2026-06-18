@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router'
 import { lazy, Suspense } from 'react'
+import { ProtectedRoute } from '@/features/auth'
 import { appRoutes } from './routes'
 import ErrorBoundary from './ErrorBoundary'
 
@@ -24,6 +25,7 @@ const CalendarPage = lazy(() => import('@/pages/CalendarPage'))
 const SchoolPage = lazy(() => import('@/pages/SchoolPage'))
 const AddProductPage = lazy(() => import('@/pages/AddProductPage'))
 const OnboardingPage = lazy(() => import('@/pages/OnboardingPage'))
+const UserDashboardPage = lazy(() => import('@/pages/UserDashboardPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
 export const appRouter = createBrowserRouter([
@@ -40,6 +42,14 @@ export const appRouter = createBrowserRouter([
       { path: appRoutes.school, element: <Page component={SchoolPage} /> },
       { path: appRoutes.addProduct, element: <Page component={AddProductPage} /> },
       { path: appRoutes.onboarding, element: <Page component={OnboardingPage} /> },
+      {
+        path: appRoutes.userDashboard,
+        element: (
+          <ProtectedRoute>
+            <Page component={UserDashboardPage} />
+          </ProtectedRoute>
+        ),
+      },
     ],
   },
   {
