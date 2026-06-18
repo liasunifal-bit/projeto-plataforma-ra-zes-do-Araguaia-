@@ -3,4 +3,6 @@ export type CommunityEvent = {
   title: string
   date: string
   location: string
+  description?: string
+  endsAt?: string
 }
