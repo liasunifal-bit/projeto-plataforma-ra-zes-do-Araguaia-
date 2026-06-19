@@ -7,6 +7,7 @@ export const appRoutes = {
   calendar: '/calendario',
   school: '/escolinha',
   addProduct: '/cadastrar-produto',
+  addEvent: '/cadastrar-evento',
   onboarding: '/boas-vindas',
 } as const
 
