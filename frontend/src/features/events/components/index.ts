@@ -1,3 +1,5 @@
 export { EventCard } from './EventCard'
-export { EventMonthGroup } from './EventMonthGroup'
-export { EventShareButton } from './EventShareButton'
+export { CalendarDashboard } from './CalendarDashboard'
+export { CalendarFilters } from './CalendarFilters'
+export { CalendarGrid } from './CalendarGrid'
+export { EventDetailsModal } from './EventDetailsModal'

@@ -23,6 +23,7 @@ const MapPage = lazy(() => import('@/pages/MapPage'))
 const CalendarPage = lazy(() => import('@/pages/CalendarPage'))
 const SchoolPage = lazy(() => import('@/pages/SchoolPage'))
 const AddProductPage = lazy(() => import('@/pages/AddProductPage'))
+const CreateEventPage = lazy(() => import('@/features/events/pages/CreateEventPage'))
 const OnboardingPage = lazy(() => import('@/pages/OnboardingPage'))
 const NotFoundPage = lazy(() => import('@/pages/NotFoundPage'))
 
@@ -39,6 +40,7 @@ export const appRouter = createBrowserRouter([
       { path: appRoutes.calendar, element: <Page component={CalendarPage} /> },
       { path: appRoutes.school, element: <Page component={SchoolPage} /> },
       { path: appRoutes.addProduct, element: <Page component={AddProductPage} /> },
+      { path: appRoutes.addEvent, element: <Page component={CreateEventPage} /> },
       { path: appRoutes.onboarding, element: <Page component={OnboardingPage} /> },
     ],
   },
