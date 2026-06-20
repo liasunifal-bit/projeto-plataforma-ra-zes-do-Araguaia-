@@ -1,7 +1,7 @@
 import { createBrowserRouter } from 'react-router'
 import { lazy, Suspense } from 'react'
 
-import { ProtectedRoute } from '@/features/auth'
+import { PermissionGate, ProtectedRoute } from '@/features/auth'
 import { appRoutes } from './routes'
 import ErrorBoundary from './ErrorBoundary'
 
@@ -11,9 +11,6 @@ const fallback = (
   </div>
 )
 
-// Page envolve cada componente em Suspense para suportar lazy loading.
-// O navegador só baixa o código de cada página quando o usuário navega
-// pra ela, em vez de baixar tudo de uma vez no carregamento inicial.
 const Page = ({ component: C }: { component: React.ComponentType }) => (
   <Suspense fallback={fallback}>
     <C />
@@ -51,7 +48,7 @@ export const appRouter = createBrowserRouter([
     path: appRoutes.home,
     errorElement: <ErrorBoundary />,
     children: [
-      // ── Públicas ────────────────────────────────────────────────────────
+      // ── Públicas ─────────────────────────────────────────────────────────
       { index: true, element: <Page component={HomePage} /> },
       { path: appRoutes.catalog, element: <Page component={CatalogPage} /> },
       { path: appRoutes.category, element: <Page component={CategoryPage} /> },
@@ -61,7 +58,7 @@ export const appRouter = createBrowserRouter([
       { path: appRoutes.school, element: <Page component={SchoolPage} /> },
       { path: appRoutes.onboarding, element: <Page component={OnboardingPage} /> },
 
-      // ── Protegidas (login obrigatório) ───────────────────────────────────
+      // ── Protegidas (login obrigatório) ────────────────────────────────────
       {
         path: appRoutes.addProduct,
         element: (
@@ -87,12 +84,16 @@ export const appRouter = createBrowserRouter([
         ),
       },
 
-      // ── Admin (login obrigatório — role 'admin' verificado via PermissionGate) ──
+      // ── Admin (login + role 'admin' obrigatórios) ─────────────────────────
+      // ProtectedRoute → verifica se está LOGADO
+      // PermissionGate → verifica se tem role 'admin'
       {
         path: appRoutes.admin,
         element: (
           <ProtectedRoute>
-            <Page component={AdminDashboardPage} />
+            <PermissionGate allowedRoles={['admin']}>
+              <Page component={AdminDashboardPage} />
+            </PermissionGate>
           </ProtectedRoute>
         ),
       },
@@ -100,7 +101,9 @@ export const appRouter = createBrowserRouter([
         path: appRoutes.adminSellers,
         element: (
           <ProtectedRoute>
-            <Page component={AdminSellersPage} />
+            <PermissionGate allowedRoles={['admin']}>
+              <Page component={AdminSellersPage} />
+            </PermissionGate>
           </ProtectedRoute>
         ),
       },
@@ -108,7 +111,9 @@ export const appRouter = createBrowserRouter([
         path: appRoutes.adminProducts,
         element: (
           <ProtectedRoute>
-            <Page component={AdminProductsPage} />
+            <PermissionGate allowedRoles={['admin']}>
+              <Page component={AdminProductsPage} />
+            </PermissionGate>
           </ProtectedRoute>
         ),
       },
@@ -116,7 +121,9 @@ export const appRouter = createBrowserRouter([
         path: appRoutes.adminEvents,
         element: (
           <ProtectedRoute>
-            <Page component={AdminEventsPage} />
+            <PermissionGate allowedRoles={['admin']}>
+              <Page component={AdminEventsPage} />
+            </PermissionGate>
           </ProtectedRoute>
         ),
       },
@@ -124,7 +131,9 @@ export const appRouter = createBrowserRouter([
         path: appRoutes.adminSellerDetail,
         element: (
           <ProtectedRoute>
-            <Page component={AdminSellerDetailPage} />
+            <PermissionGate allowedRoles={['admin']}>
+              <Page component={AdminSellerDetailPage} />
+            </PermissionGate>
           </ProtectedRoute>
         ),
       },
@@ -132,7 +141,9 @@ export const appRouter = createBrowserRouter([
         path: appRoutes.adminProductDetail,
         element: (
           <ProtectedRoute>
-            <Page component={AdminProductDetailPage} />
+            <PermissionGate allowedRoles={['admin']}>
+              <Page component={AdminProductDetailPage} />
+            </PermissionGate>
           </ProtectedRoute>
         ),
       },
@@ -140,7 +151,9 @@ export const appRouter = createBrowserRouter([
         path: appRoutes.adminEventDetail,
         element: (
           <ProtectedRoute>
-            <Page component={AdminEventDetailPage} />
+            <PermissionGate allowedRoles={['admin']}>
+              <Page component={AdminEventDetailPage} />
+            </PermissionGate>
           </ProtectedRoute>
         ),
       },
