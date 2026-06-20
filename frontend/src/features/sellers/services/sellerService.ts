@@ -31,18 +31,20 @@ export async function saveMySellerProfile(input: SaveSellerInput) {
   const { data: authData } = await client.auth.getUser()
   if (!authData.user) throw new Error('Entre na sua conta para continuar.')
 
+  // user_id é o nome real da coluna em seller_profiles (ver schema SQL).
+  // "owner_id" não existe na tabela e causava erro de coluna inexistente.
   const { data, error } = await client
     .from('seller_profiles')
     .upsert(
       {
-        owner_id: authData.user.id,
+        user_id: authData.user.id,
         display_name: input.displayName,
         whatsapp_number: input.whatsappNumber,
         location_name: input.locationName,
         pix_key: input.pixKey || null,
         is_published: true,
       },
-      { onConflict: 'owner_id' },
+      { onConflict: 'user_id' },
     )
     .select('id')
     .single()
@@ -59,7 +61,7 @@ export async function getMySellerProfile() {
   const { data, error } = await client
     .from('seller_profiles')
     .select('id, display_name, whatsapp_number, location_name, pix_key')
-    .eq('owner_id', authData.user.id)
+    .eq('user_id', authData.user.id)
     .maybeSingle()
 
   if (error) throw error

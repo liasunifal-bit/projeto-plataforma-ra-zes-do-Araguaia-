@@ -10,6 +10,10 @@ export type AuthContextValue = {
   isLoading: boolean
 }
 
+// Valor padrão do contexto — usado apenas antes do AuthProvider inicializar.
+// isLoading: true garante que a UI não renderiza nada antes de saber se
+// há sessão ativa, evitando flashes de conteúdo incorreto (ex: mostrar
+// "faça login" por um frame antes de descobrir que o usuário já está logado).
 export const AuthContext = createContext<AuthContextValue>({
   session: null,
   user: null,

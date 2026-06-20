@@ -1,6 +1,6 @@
 import { AppShell } from '@/app/layout/AppShell'
 import { BottomNav } from '@/app/layout/BottomNav'
-import { Header } from '@/app/layout/Headers'
+import { PageHeader } from '@/app/layout/PageHeader'
 import {
   DashboardActions,
   LogoutButton,
@@ -13,7 +13,7 @@ export default function UserDashboardPage() {
 
   return (
     <AppShell>
-      <Header title="Minha conta" />
+      <PageHeader title="Minha conta" />
 
       <main className="flex flex-1 flex-col gap-5 overflow-y-auto px-4 pb-24 pt-6">
         <header className="flex flex-col gap-2">
@@ -62,4 +62,3 @@ export default function UserDashboardPage() {
     </AppShell>
   )
 }
-

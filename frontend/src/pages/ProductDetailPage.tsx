@@ -2,7 +2,7 @@ import { useParams } from 'react-router-dom'
 
 import { AppShell } from '@/app/layout/AppShell'
 import { BottomNav } from '@/app/layout/BottomNav'
-import { Header } from '@/app/layout/Headers'
+import { PageHeader } from '@/app/layout/PageHeader'
 import { ProductDetail, useProductDetail } from '@/features/catalog'
 
 export default function ProductDetailPage() {
@@ -11,7 +11,7 @@ export default function ProductDetailPage() {
 
   return (
     <AppShell>
-      <Header title="Produto" />
+      <PageHeader title={product?.name ?? 'Produto'} />
 
       <main className="flex flex-1 flex-col gap-5 overflow-y-auto px-4 pb-6 pt-6">
         {isLoading && (

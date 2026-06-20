@@ -1,29 +1,36 @@
-import { AppShell } from '@/app/layout/AppShell'
-import { BottomNav } from '@/app/layout/BottomNav'
-import { Header } from '@/app/layout/Headers'
-import { useMapProducts } from '@/features/map'
+import { useState } from 'react';
+import { PageHeader } from '@/app/layout/PageHeader';
+import { BottomNav } from '@/app/layout/BottomNav';
+import { LocalMap } from '../features/map/components/LocalMap';
+import { MapCategoryFilters } from '../features/map/components/MapCategoryFilters';
 
 export default function MapPage() {
-  const points = useMapProducts()
+  const [activeCategory, setActiveCategory] = useState('todos');
 
   return (
-    <AppShell>
-      <Header title="Mapa" />
-      <main className="flex flex-1 flex-col gap-4 overflow-y-auto p-5">
-        <h1 className="font-heading text-2xl font-bold">Produtos no mapa</h1>
-        <p className="text-sm text-foreground/60">
-          {points.length} produto(s) publicado(s) com localizacao.
-        </p>
-        {points.map((point) => (
-          <article key={point.id} className="rounded-2xl border bg-white p-4">
-            <h2 className="font-bold">{point.label}</h2>
-            <p className="text-sm">
-              {point.latitude}, {point.longitude}
-            </p>
-          </article>
-        ))}
-      </main>
-      <BottomNav />
-    </AppShell>
-  )
+    <div className="min-h-screen w-full bg-muted/40 flex justify-center overflow-hidden">
+      {/* Container "Celular Virtual" PWA restrito e centralizado */}
+      <div className="w-full max-w-md md:max-w-lg h-[100dvh] bg-background text-foreground flex flex-col relative shadow-2xl md:border-x md:border-border/20 overflow-hidden">
+        {/* ─────────────── CABEÇALHO ─────────────── */}
+        <PageHeader title="Mapa" />
+
+        {/* ─────────────── CONTEÚDO PRINCIPAL ─────────────── */}
+        <main className="flex flex-col gap-0 flex-1 relative overflow-hidden pb-20">
+          {/* Filtros sobre o mapa */}
+          <MapCategoryFilters
+            activeCategory={activeCategory}
+            onCategoryChange={setActiveCategory}
+          />
+
+          {/* Mapa */}
+          <LocalMap
+            activeCategory={activeCategory}
+          />
+        </main>
+
+        {/* ─────────────── NAVEGAÇÃO INFERIOR ─────────────── */}
+        <BottomNav />
+      </div>
+    </div>
+  );
 }

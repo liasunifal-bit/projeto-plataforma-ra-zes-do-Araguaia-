@@ -1,5 +1,7 @@
 export { LocalMap } from './LocalMap'
 export { MapCategoryFilters } from './MapCategoryFilters'
-export { ProductMapPopup } from './ProductMapPopup'
-export { ProductMarker } from './ProductMarker'
 export { RecenterButton } from './RecenterButton'
+export { SellerMarker } from './SellerMarker'
+export { EventMarker } from './EventMarker'
+
+
