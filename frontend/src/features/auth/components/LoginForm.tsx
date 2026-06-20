@@ -1,9 +1,23 @@
 import { useState, type FormEvent } from 'react'
-
+import { useLocation, useNavigate } from 'react-router-dom'
+import { appRoutes } from '@/app/routes'
 import { isSupabaseConfigured } from '@/lib/supabase/client'
 import { requestPasswordReset, signIn, signInWithGoogle, signUp } from '../services/authService'
 
-export function LoginForm() {
+type LoginFormProps = {
+  redirectTo?: string
+}
+
+type LoginLocationState = {
+  from?: {
+    pathname?: string
+  }
+}
+
+export function LoginForm({ redirectTo }: LoginFormProps) {
+  const navigate = useNavigate()
+  const location = useLocation()
+  
   const [mode, setMode] = useState<'login' | 'signup'>('login')
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -23,9 +37,13 @@ export function LoginForm() {
       } else {
         await signIn(email, password)
         setMessage('Login realizado com sucesso.')
+        
+        const state = location.state as LoginLocationState | null
+        const destination = redirectTo ?? state?.from?.pathname ?? appRoutes.userDashboard
+        navigate(destination, { replace: true })
       }
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Nao foi possivel continuar.')
+      setMessage(error instanceof Error ? error.message : 'Não foi possível continuar.')
     } finally {
       setIsSubmitting(false)
     }
@@ -41,11 +59,20 @@ export function LoginForm() {
     setMessage(null)
     try {
       await requestPasswordReset(email)
-      setMessage('Enviamos as instrucoes de recuperacao para o seu e-mail.')
+      setMessage('Se este e-mail estiver cadastrado, enviaremos instruções de recuperação.')
     } catch (error) {
-      setMessage(error instanceof Error ? error.message : 'Nao foi possivel recuperar a senha.')
+      setMessage(error instanceof Error ? error.message : 'Não foi possível recuperar a senha.')
     } finally {
       setIsSubmitting(false)
+    }
+  }
+
+  async function handleGoogleLogin() {
+    setMessage(null)
+    try {
+      await signInWithGoogle()
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Login com Google indisponível.')
     }
   }
 
@@ -58,67 +85,79 @@ export function LoginForm() {
   }
 
   return (
-    <form aria-label="Login" onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form aria-label="Login" className="flex flex-col gap-4 text-left font-sans" onSubmit={handleSubmit}>
       {mode === 'signup' && (
-        <label className="flex flex-col gap-1 text-sm font-bold">
+        <label className="flex flex-col gap-1 text-sm font-bold text-stone-750">
           Nome
           <input
             required
+            type="text"
+            className="rounded-xl border border-stone-200 p-3 font-normal text-xs outline-none focus:border-primary transition-colors text-stone-850"
             value={fullName}
             onChange={(event) => setFullName(event.target.value)}
-            className="rounded-xl border p-3 font-normal"
           />
         </label>
       )}
-      <label className="flex flex-col gap-1 text-sm font-bold">
+
+      <label className="flex flex-col gap-1 text-sm font-bold text-stone-750">
         E-mail
         <input
           required
+          className="rounded-xl border border-stone-200 p-3 font-normal text-xs outline-none focus:border-primary transition-colors text-stone-850"
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="rounded-xl border p-3 font-normal"
         />
       </label>
-      <label className="flex flex-col gap-1 text-sm font-bold">
+
+      <label className="flex flex-col gap-1 text-sm font-bold text-stone-750">
         Senha
         <input
           required
+          className="rounded-xl border border-stone-200 p-3 font-normal text-xs outline-none focus:border-primary transition-colors text-stone-850"
           minLength={8}
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="rounded-xl border p-3 font-normal"
         />
       </label>
-      <button disabled={isSubmitting} className="rounded-xl bg-primary p-3 font-bold text-white">
+
+      <button
+        className="rounded-xl bg-primary p-3 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 text-xs active:scale-[0.98] transition-all"
+        disabled={isSubmitting}
+        type="submit"
+      >
         {isSubmitting ? 'Aguarde...' : mode === 'login' ? 'Entrar' : 'Criar conta'}
       </button>
+
       <button
+        className="rounded-xl border border-stone-200 p-3 font-bold text-xs text-stone-700 hover:bg-stone-50 transition-colors"
         type="button"
-        onClick={() => void signInWithGoogle()}
-        className="rounded-xl border p-3 font-bold"
+        onClick={() => void handleGoogleLogin()}
       >
         Continuar com Google
       </button>
+
       <button
+        className="text-xs font-bold text-primary hover:underline transition-all"
         type="button"
         onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-        className="text-sm font-bold text-primary"
       >
-        {mode === 'login' ? 'Ainda nao tenho conta' : 'Ja tenho uma conta'}
+        {mode === 'login' ? 'Ainda não tenho conta' : 'Já tenho uma conta'}
       </button>
+
       {mode === 'login' && (
         <button
+          className="text-xs font-bold text-foreground/60 hover:underline transition-all"
           type="button"
           onClick={() => void handlePasswordReset()}
-          className="text-sm font-bold text-foreground/60"
         >
           Esqueci minha senha
         </button>
       )}
+
       {message && (
-        <p role="status" className="text-sm">
+        <p aria-live="polite" role="status" className="text-xs text-stone-500 font-semibold leading-relaxed">
           {message}
         </p>
       )}

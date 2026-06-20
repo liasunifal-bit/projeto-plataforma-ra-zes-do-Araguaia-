@@ -1,5 +1,5 @@
 export * from './components'
 export * from './hooks'
 export * from './services'
-export type { UserRole } from './types'
+export type { AuthUser, UserRole } from './types'
 export { AuthProvider } from './AuthProvider'
