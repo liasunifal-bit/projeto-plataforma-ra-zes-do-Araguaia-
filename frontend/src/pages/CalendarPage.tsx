@@ -89,7 +89,7 @@ export default function CalendarPage() {
         }
       />
       
-      <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 pt-6">
+      <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 pt-6 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         {/* Bloco de Introdução */}
         <header className="flex flex-col gap-1.5">
           <span className="text-[10px] font-black uppercase tracking-wider text-emerald-600">

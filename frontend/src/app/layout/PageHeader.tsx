@@ -16,7 +16,7 @@ export function PageHeader({ title, action }: PageHeaderProps) {
   const navigate = useNavigate()
 
   return (
-    <header className="bg-primary text-white px-5 py-4 rounded-b-[2rem] shadow-md flex items-center justify-between gap-3">
+    <header className="bg-primary text-white px-5 py-4 rounded-b-[2rem] shadow-md flex items-center justify-between gap-3 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
       <div className="flex items-center gap-3">
         <button
           type="button"

@@ -108,7 +108,7 @@ export default function AdminEventDetailPage() {
     <AppShell>
       <PageHeader title="Ficha do Evento" />
 
-      <main className="flex-1 flex flex-col gap-6 px-4 pt-6 pb-6 overflow-y-auto bg-stone-50/50">
+      <main className="flex-1 flex flex-col gap-6 px-4 pt-6 pb-6 overflow-y-auto bg-stone-50/50 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         
         {/* Título e Status */}
         <section className="bg-white border border-border/40 p-5 rounded-3xl shadow-xs flex flex-col gap-3.5 text-left">

@@ -14,7 +14,7 @@ export function BottomNav() {
   return (
     <nav 
       aria-label="Navegação principal" 
-      className="absolute bottom-0 left-0 right-0 bg-white border-t border-border/30 py-3.5 px-6 flex justify-around items-center z-50 shadow-[0_-6px_20px_rgba(0,0,0,0.03)] rounded-t-2xl"
+      className="absolute bottom-0 left-0 right-0 bg-white border-t border-border/30 py-3.5 px-6 flex justify-around items-center z-50 shadow-[0_-6px_20px_rgba(0,0,0,0.03)] rounded-t-2xl lg:fixed lg:inset-y-0 lg:right-auto lg:w-24 lg:flex-col lg:justify-center lg:gap-8 lg:rounded-none lg:border-r lg:border-t-0 lg:px-3 lg:py-8 lg:shadow-[6px_0_20px_rgba(0,0,0,0.03)]"
     >
       {navItems.map((item) => {
         const Icon = item.icon
@@ -24,7 +24,7 @@ export function BottomNav() {
           <Link
             key={item.path}
             to={item.path}
-            className={`flex flex-col items-center gap-1 transition-all duration-200 select-none ${
+            className={`flex flex-col items-center gap-1 transition-all duration-200 select-none lg:w-full lg:rounded-2xl lg:px-2 lg:py-3 ${
               isActive 
                 ? 'text-primary scale-105 font-bold' 
                 : 'text-foreground/45 hover:text-foreground/75'
