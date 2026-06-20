@@ -1,9 +1,22 @@
 import { useState, type FormEvent } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
 
-import { isSupabaseConfigured } from '@/lib/supabase/client'
+import { appRoutes } from '@/app/routes'
 import { requestPasswordReset, signIn, signInWithGoogle, signUp } from '../services/authService'
 
-export function LoginForm() {
+type LoginFormProps = {
+  redirectTo?: string
+}
+
+type LoginLocationState = {
+  from?: {
+    pathname?: string
+  }
+}
+
+export function LoginForm({ redirectTo }: LoginFormProps) {
+  const navigate = useNavigate()
+  const location = useLocation()
   const [mode, setMode] = useState<'login' | 'signup'>('login')
   const [fullName, setFullName] = useState('')
   const [email, setEmail] = useState('')
@@ -19,11 +32,13 @@ export function LoginForm() {
     try {
       if (mode === 'signup') {
         await signUp(email, password, fullName)
-        setMessage('Cadastro realizado. Confira seu e-mail para confirmar a conta.')
       } else {
         await signIn(email, password)
-        setMessage('Login realizado com sucesso.')
       }
+
+      const state = location.state as LoginLocationState | null
+      const destination = redirectTo ?? state?.from?.pathname ?? appRoutes.userDashboard
+      navigate(destination, { replace: true })
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Nao foi possivel continuar.')
     } finally {
@@ -32,16 +47,12 @@ export function LoginForm() {
   }
 
   async function handlePasswordReset() {
-    if (!email) {
-      setMessage('Informe seu e-mail para recuperar a senha.')
-      return
-    }
-
     setIsSubmitting(true)
     setMessage(null)
+
     try {
       await requestPasswordReset(email)
-      setMessage('Enviamos as instrucoes de recuperacao para o seu e-mail.')
+      setMessage('Se este e-mail estiver cadastrado, enviaremos instrucoes de recuperacao.')
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Nao foi possivel recuperar a senha.')
     } finally {
@@ -49,76 +60,89 @@ export function LoginForm() {
     }
   }
 
-  if (!isSupabaseConfigured) {
-    return (
-      <p className="rounded-2xl border border-amber-300 bg-amber-50 p-4 text-sm text-amber-900">
-        Configure VITE_SUPABASE_URL e VITE_SUPABASE_ANON_KEY para habilitar contas.
-      </p>
-    )
+  async function handleGoogleLogin() {
+    setMessage(null)
+
+    try {
+      await signInWithGoogle()
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : 'Login com Google indisponivel.')
+    }
   }
 
   return (
-    <form aria-label="Login" onSubmit={handleSubmit} className="flex flex-col gap-4">
+    <form aria-label="Login" className="flex flex-col gap-4" onSubmit={handleSubmit}>
       {mode === 'signup' && (
         <label className="flex flex-col gap-1 text-sm font-bold">
           Nome
           <input
             required
+            className="rounded-xl border p-3 font-normal"
             value={fullName}
             onChange={(event) => setFullName(event.target.value)}
-            className="rounded-xl border p-3 font-normal"
           />
         </label>
       )}
+
       <label className="flex flex-col gap-1 text-sm font-bold">
         E-mail
         <input
           required
+          className="rounded-xl border p-3 font-normal"
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
-          className="rounded-xl border p-3 font-normal"
         />
       </label>
+
       <label className="flex flex-col gap-1 text-sm font-bold">
         Senha
         <input
           required
+          className="rounded-xl border p-3 font-normal"
           minLength={8}
           type="password"
           value={password}
           onChange={(event) => setPassword(event.target.value)}
-          className="rounded-xl border p-3 font-normal"
         />
       </label>
-      <button disabled={isSubmitting} className="rounded-xl bg-primary p-3 font-bold text-white">
+
+      <button
+        className="rounded-xl bg-primary p-3 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60"
+        disabled={isSubmitting}
+        type="submit"
+      >
         {isSubmitting ? 'Aguarde...' : mode === 'login' ? 'Entrar' : 'Criar conta'}
       </button>
+
       <button
-        type="button"
-        onClick={() => void signInWithGoogle()}
         className="rounded-xl border p-3 font-bold"
+        type="button"
+        onClick={() => void handleGoogleLogin()}
       >
         Continuar com Google
       </button>
+
       <button
+        className="text-sm font-bold text-primary"
         type="button"
         onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-        className="text-sm font-bold text-primary"
       >
         {mode === 'login' ? 'Ainda nao tenho conta' : 'Ja tenho uma conta'}
       </button>
+
       {mode === 'login' && (
         <button
+          className="text-sm font-bold text-foreground/60"
           type="button"
           onClick={() => void handlePasswordReset()}
-          className="text-sm font-bold text-foreground/60"
         >
           Esqueci minha senha
         </button>
       )}
+
       {message && (
-        <p role="status" className="text-sm">
+        <p aria-live="polite" role="status" className="text-sm">
           {message}
         </p>
       )}
