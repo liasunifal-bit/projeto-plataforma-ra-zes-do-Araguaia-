@@ -1,1 +1,1 @@
-export { listLessons } from './lessonService'
+export { listLessons, saveLessonProgress } from './lessonService'

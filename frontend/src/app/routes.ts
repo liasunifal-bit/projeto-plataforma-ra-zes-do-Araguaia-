@@ -1,4 +1,5 @@
 export const appRoutes = {
+  // Rotas públicas — qualquer visitante pode acessar
   home: '/',
   catalog: '/catalogo',
   category: '/catalogo/:categorySlug',
@@ -6,7 +7,19 @@ export const appRoutes = {
   map: '/mapa',
   calendar: '/calendario',
   school: '/escolinha',
-  addProduct: '/cadastrar-produto',
   onboarding: '/boas-vindas',
-} as const
 
+  // Rotas protegidas — exigem login
+  addProduct: '/cadastrar-produto',
+  addEvent: '/cadastrar-evento',
+  userDashboard: '/minha-conta',
+
+  // Rotas de admin — exigem login e role 'admin'
+  admin: '/admin',
+  adminSellers: '/admin/vendedores',
+  adminProducts: '/admin/produtos',
+  adminEvents: '/admin/eventos',
+  adminSellerDetail: '/admin/vendedor/:id',
+  adminProductDetail: '/admin/produto/:id',
+  adminEventDetail: '/admin/evento/:id',
+} as const

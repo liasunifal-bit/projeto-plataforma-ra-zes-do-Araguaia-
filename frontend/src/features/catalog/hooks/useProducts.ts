@@ -2,12 +2,23 @@ import { useEffect, useState } from 'react'
 
 import { listProducts } from '../services/productService'
 import type { ProductSummary } from '../types'
+import { supabase } from '@/lib/supabase/client'
 
 export function useProducts(): ProductSummary[] {
   const [products, setProducts] = useState<ProductSummary[]>([])
 
   useEffect(() => {
-    listProducts().then(setProducts)
+    const load = () => void listProducts().then(setProducts)
+    load()
+
+    const channel = supabase
+      ?.channel('home-products')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, load)
+      .subscribe()
+
+    return () => {
+      if (channel && supabase) void supabase.removeChannel(channel)
+    }
   }, [])
 
   return products
@@ -29,8 +40,8 @@ export function useCatalogProducts(): CatalogProductsState {
   useEffect(() => {
     let isActive = true
 
-    listProducts()
-      .then((products) => {
+    const load = () =>
+      listProducts().then((products) => {
         if (isActive) {
           setState({ products, isLoading: false, errorMessage: null })
         }
@@ -45,8 +56,15 @@ export function useCatalogProducts(): CatalogProductsState {
         }
       })
 
+    void load()
+    const channel = supabase
+      ?.channel('catalog-products')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'products' }, () => void load())
+      .subscribe()
+
     return () => {
       isActive = false
+      if (channel && supabase) void supabase.removeChannel(channel)
     }
   }, [])
 

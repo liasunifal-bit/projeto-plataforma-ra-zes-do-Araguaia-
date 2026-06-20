@@ -68,8 +68,13 @@ type SellerMarkerProps = {
 };
 
 export function SellerMarker({ seller }: SellerMarkerProps) {
-  const icon = createCategoryIcon(seller.category) ?? defaultIcon;
-  const categoryLabel = CATEGORY_LABELS[seller.category] ?? seller.category;
+  if (seller.latitude === undefined || seller.longitude === undefined) {
+    return null;
+  }
+
+  const category = seller.category ?? 'servicos';
+  const icon = createCategoryIcon(category) ?? defaultIcon;
+  const categoryLabel = CATEGORY_LABELS[category] ?? category;
   const whatsappUrl = `https://wa.me/55${seller.phone}?text=${encodeURIComponent(`Olá ${seller.name}! Vi seu perfil no Raízes do Araguaia e gostaria de saber mais sobre seus produtos.`)}`;
 
   return (
@@ -86,8 +91,8 @@ export function SellerMarker({ seller }: SellerMarkerProps) {
           <span
             className="inline-block text-xs font-semibold px-2 py-0.5 rounded-full w-fit"
             style={{
-              backgroundColor: `${CATEGORY_COLORS[seller.category]}15`,
-              color: CATEGORY_COLORS[seller.category],
+              backgroundColor: `${CATEGORY_COLORS[category]}15`,
+              color: CATEGORY_COLORS[category],
             }}
           >
             {categoryLabel}

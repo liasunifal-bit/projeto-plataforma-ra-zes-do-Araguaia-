@@ -4,9 +4,11 @@ import 'leaflet/dist/leaflet.css';
 import { brejoGrandeCoordinates, brejoGrandeBounds, MAP_ZOOM } from '../services/mapService';
 import { mockVendedores } from '../services/mockVendedores';
 import { VendedorMarker } from './VendedorMarker';
+import { EventMarker } from './EventMarker';
 import { RecenterButton } from './RecenterButton';
 import { SatelliteToggle } from './SatelliteToggle';
 import { useEffect, useState } from 'react';
+import { useEvents } from '@/features/events';
 
 type LocalMapProps = {
   activeCategory?: string;
@@ -22,16 +24,27 @@ function MapInitializer({ center }: { center: [number, number] }) {
 }
 
 // Lógica de flyTo fluido quando uma categoria for clicada
-function CategoryCentering({ vendedores, defaultCenter }: { vendedores: typeof mockVendedores; defaultCenter: [number, number] }) {
+function MapCentering({
+  points,
+  defaultCenter,
+}: {
+  points: { lat: number; lng: number }[];
+  defaultCenter: [number, number];
+}) {
   const map = useMap();
   useEffect(() => {
-    if (vendedores.length > 0) {
-      const bounds = L.latLngBounds(vendedores.map(v => [v.lat, v.lng]));
-      map.flyToBounds(bounds, { animate: true, duration: 1.5, padding: [50, 50], maxZoom: MAP_ZOOM.default + 1 });
+    if (points.length > 0) {
+      const bounds = L.latLngBounds(points.map((p) => [p.lat, p.lng]));
+      map.flyToBounds(bounds, {
+        animate: true,
+        duration: 1.5,
+        padding: [50, 50],
+        maxZoom: MAP_ZOOM.default + 1,
+      });
     } else {
       map.flyTo(defaultCenter, MAP_ZOOM.default, { animate: true, duration: 1.5 });
     }
-  }, [vendedores, map, defaultCenter]);
+  }, [points, map, defaultCenter]);
   return null;
 }
 
@@ -39,6 +52,7 @@ export function LocalMap({
   activeCategory = 'todos',
 }: LocalMapProps) {
   const [isSatellite, setIsSatellite] = useState(false);
+  const events = useEvents();
 
   // Coordenadas de Brejo Grande do Araguaia como centro padrão
   const defaultCenter: [number, number] = [
@@ -46,11 +60,28 @@ export function LocalMap({
     brejoGrandeCoordinates.longitude,
   ];
 
-  // Filtrar vendedores pela categoria ativa
+  // Determinar se exibimos vendedores e/ou eventos baseados no filtro ativo
+  const showSellers = activeCategory === 'todos' || activeCategory !== 'eventos';
+  const showEvents = activeCategory === 'todos' || activeCategory === 'eventos';
+
+  // Filtrar vendedores pela categoria ativa (se não for o filtro exclusivo de eventos)
   const filteredVendedores =
-    activeCategory === 'todos'
-      ? mockVendedores
-      : mockVendedores.filter((v) => v.categoria.toLowerCase() === activeCategory);
+    showSellers
+      ? activeCategory === 'todos'
+        ? mockVendedores
+        : mockVendedores.filter((v) => v.categoria.toLowerCase() === activeCategory)
+      : [];
+
+  // Filtrar eventos com coordenadas válidas
+  const validEvents = showEvents
+    ? events.filter((e) => e.latitude !== undefined && e.longitude !== undefined)
+    : [];
+
+  // Pontos ativos para recentralizar o mapa
+  const activePoints = [
+    ...filteredVendedores.map((v) => ({ lat: v.lat, lng: v.lng })),
+    ...validEvents.map((e) => ({ lat: e.latitude!, lng: e.longitude! })),
+  ];
 
   return (
     <div className="w-full flex-1 h-full bg-muted/20 rounded-2xl overflow-hidden shadow-inner relative">
@@ -94,11 +125,16 @@ export function LocalMap({
         <MapInitializer center={defaultCenter} />
 
         {/* Navegação Fluida entre filtros */}
-        <CategoryCentering vendedores={filteredVendedores} defaultCenter={defaultCenter} />
+        <MapCentering points={activePoints} defaultCenter={defaultCenter} />
 
-        {/* Renderizando vendedores filtrados dinamicamente via .map() */}
+        {/* Renderizando vendedores filtrados */}
         {filteredVendedores.map((vendedor) => (
           <VendedorMarker key={vendedor.id} vendedor={vendedor} />
+        ))}
+
+        {/* Renderizando eventos comunitários cadastrados */}
+        {validEvents.map((event) => (
+          <EventMarker key={event.id} event={event} />
         ))}
 
         {/* Botão de recentralizar */}
@@ -110,5 +146,6 @@ export function LocalMap({
     </div>
   );
 }
+
 
 

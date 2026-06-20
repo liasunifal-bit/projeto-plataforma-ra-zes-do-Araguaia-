@@ -6,6 +6,7 @@ const CATEGORIES = [
   { slug: 'artesanato', label: 'Artesanato' },
   { slug: 'peixe', label: 'Peixe' },
   { slug: 'servicos', label: 'Serviços' },
+  { slug: 'eventos', label: 'Eventos' },
 ] as const;
 
 type MapCategoryFiltersProps = {
