@@ -48,7 +48,7 @@ export default function CreateEventPage() {
   return (
     <AppShell>
       <PageHeader title="Cadastrar evento" />
-      <main className="flex-1 overflow-y-auto p-5">
+      <main className="flex-1 overflow-y-auto p-5 md:p-6 lg:p-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <div className="mx-auto flex max-w-xl flex-col gap-4">
           <div className="flex flex-col gap-1">
             <h1 className="font-heading text-2xl font-black text-stone-900 leading-tight">

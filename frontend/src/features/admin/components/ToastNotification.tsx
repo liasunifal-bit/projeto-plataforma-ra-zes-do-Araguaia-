@@ -17,7 +17,7 @@ export function ToastNotification({ message, type = 'success', onClose, duration
   }, [onClose, duration])
 
   return (
-    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-xs bg-white rounded-2xl shadow-xl border border-border/60 p-3.5 flex items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom-5 duration-200">
+    <div className="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-xs bg-white rounded-2xl shadow-xl border border-border/60 p-3.5 flex items-center justify-between gap-3 animate-in fade-in slide-in-from-bottom-5 duration-200 lg:bottom-6 lg:left-28 lg:translate-x-0">
       <div className="flex items-center gap-2.5">
         {type === 'success' ? (
           <CheckCircle2 className="text-emerald-500 shrink-0" size={20} />

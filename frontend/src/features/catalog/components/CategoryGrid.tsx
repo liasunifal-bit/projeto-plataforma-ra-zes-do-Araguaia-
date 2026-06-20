@@ -7,14 +7,14 @@ export function CategoryGrid() {
   return (
     <div className="flex flex-col gap-4">
       {/* Grade 2x2 de Categorias */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-5">
         {appCategories.map((category) => (
           <CategoryCard key={category.slug} category={category} />
         ))}
       </div>
 
       {/* Cartões Auxiliares Horizontais */}
-      <div className="flex flex-col gap-3 mt-1">
+      <div className="flex flex-col gap-3 mt-1 md:grid md:grid-cols-2 lg:gap-4">
         <Link
           to="/calendario"
           className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-border/30 shadow-sm hover:shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 group"

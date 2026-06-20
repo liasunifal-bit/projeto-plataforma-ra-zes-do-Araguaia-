@@ -5,7 +5,7 @@ export default function NotFoundPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
-      <div className="max-w-md w-full text-center space-y-6">
+      <div className="max-w-md w-full text-center space-y-6 md:max-w-2xl lg:max-w-4xl xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <span className="text-8xl font-black text-black">404</span>
 
         <div className="space-y-2">

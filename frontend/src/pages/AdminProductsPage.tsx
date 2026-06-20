@@ -95,7 +95,7 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Conteúdo Principal */}
-      <main className="flex-1 flex flex-col gap-4 px-4 pt-3 pb-6 overflow-y-auto">
+      <main className="flex-1 flex flex-col gap-4 px-4 pt-3 pb-6 overflow-y-auto md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         
         {isLoading ? (
           <div className="flex-1 flex items-center justify-center text-sm text-stone-400 font-bold">

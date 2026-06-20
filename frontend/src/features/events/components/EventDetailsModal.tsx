@@ -57,7 +57,7 @@ export function EventDetailsModal({ event, onClose }: EventDetailsModalProps) {
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md animate-in slide-in-from-bottom duration-300 rounded-3xl border border-stone-100 bg-white p-6 shadow-2xl"
+        className="relative w-full max-w-md animate-in slide-in-from-bottom duration-300 rounded-3xl border border-stone-100 bg-white p-6 shadow-2xl md:max-w-2xl lg:max-w-3xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Botão de Fechar */}

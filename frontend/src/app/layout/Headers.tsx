@@ -12,7 +12,7 @@ type HeaderProps = {
 
 export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
   return (
-    <header className="bg-primary text-white pt-6 pb-8 px-5 rounded-b-[2.5rem] shadow-md flex flex-col gap-4">
+    <header className="bg-primary text-white pt-6 pb-8 px-5 rounded-b-[2.5rem] shadow-md flex flex-col gap-4 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
       <div className="flex items-center gap-3.5">
         <img
           src={logo}

@@ -22,7 +22,7 @@ export default function SchoolPage() {
   return (
     <AppShell>
       <Header title="Escolinha" />
-      <main className="flex flex-1 flex-col gap-4 overflow-y-auto p-5">
+      <main className="flex flex-1 flex-col gap-4 overflow-y-auto p-5 md:p-6 lg:p-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <h1 className="font-heading text-2xl font-bold">Licoes</h1>
         <p>Progresso: {progress}%</p>
         <progress value={progress} max={100} className="w-full" />

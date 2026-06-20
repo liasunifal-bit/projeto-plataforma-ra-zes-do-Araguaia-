@@ -106,7 +106,7 @@ export default function AddProductPage() {
   return (
     <AppShell>
       <PageHeader title="Cadastrar produto" />
-      <main className="flex-1 overflow-y-auto p-5">
+      <main className="flex-1 overflow-y-auto p-5 md:p-6 lg:p-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <form onSubmit={handleSubmit} className="mx-auto flex max-w-xl flex-col gap-4">
           <h1 className="font-heading text-2xl font-bold">Novo anuncio</h1>
           <Field label="Nome do vendedor" name="sellerName" required />

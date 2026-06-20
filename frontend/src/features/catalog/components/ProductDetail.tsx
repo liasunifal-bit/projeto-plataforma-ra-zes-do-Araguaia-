@@ -19,20 +19,20 @@ export function ProductDetail({ product }: ProductDetailProps) {
   )
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-border/30 bg-white shadow-sm">
+    <article className="overflow-hidden rounded-2xl border border-border/30 bg-white shadow-sm md:grid md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
       {product.imageUrl ? (
         <img
           src={product.imageUrl}
           alt={product.imageAlt || product.name}
-          className="aspect-square w-full bg-muted object-cover"
+          className="aspect-square w-full bg-muted object-cover md:h-full"
         />
       ) : (
-        <div className="flex aspect-square w-full items-center justify-center bg-primary/10 text-sm font-bold uppercase tracking-wide text-primary">
+        <div className="flex aspect-square w-full items-center justify-center bg-primary/10 text-sm font-bold uppercase tracking-wide text-primary md:h-full">
           {product.category}
         </div>
       )}
 
-      <section className="flex flex-col gap-5 p-5">
+      <section className="flex flex-col gap-5 p-5 md:p-6 lg:p-8">
         <header className="flex flex-col gap-3">
           <Link
             to="/catalogo"
