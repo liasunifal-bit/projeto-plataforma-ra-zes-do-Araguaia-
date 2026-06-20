@@ -9,5 +9,12 @@ export const appRoutes = {
   addProduct: '/cadastrar-produto',
   addEvent: '/cadastrar-evento',
   onboarding: '/boas-vindas',
+  admin: '/admin',
+  adminSellers: '/admin/vendedores',
+  adminProducts: '/admin/produtos',
+  adminEvents: '/admin/eventos',
+  adminSellerDetail: '/admin/vendedor/:id',
+  adminProductDetail: '/admin/produto/:id',
+  adminEventDetail: '/admin/evento/:id',
 } as const
 
