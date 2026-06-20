@@ -30,7 +30,7 @@ export default function CatalogPage() {
     <AppShell>
       <Header title="Catalogo" />
 
-      <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 pt-6">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-6 overflow-y-auto px-4 pb-8 pt-6 md:px-8 lg:px-10 lg:pb-10">
         <header className="flex flex-col gap-2">
           <p className="text-xs font-bold uppercase tracking-wider text-primary">
             Marketplace Comunitario
@@ -43,7 +43,10 @@ export default function CatalogPage() {
           </p>
         </header>
 
-        <section aria-label="Busca e filtros do catalogo" className="flex flex-col gap-4">
+        <section
+          aria-label="Busca e filtros do catalogo"
+          className="grid gap-4 lg:grid-cols-[minmax(18rem,0.35fr)_1fr] lg:items-start"
+        >
           <ProductSearch value={query} onChange={setQuery} />
           <CategoryFilter selectedCategory={selectedCategory} onChange={setSelectedCategory} />
         </section>

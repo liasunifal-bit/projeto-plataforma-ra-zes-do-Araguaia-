@@ -15,7 +15,7 @@ export default function HomePage() {
       <Header />
 
       {/* ─────────────── CONTEÚDO PRINCIPAL ─────────────── */}
-      <main className="flex flex-col gap-7 px-4 pt-6 pb-4 overflow-y-auto">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-7 overflow-y-auto px-4 pb-8 pt-6 md:px-8 lg:px-10 lg:pb-10">
 
         {/* Bloco de Categorias */}
         <section>
@@ -45,7 +45,7 @@ export default function HomePage() {
         {/* Banner CTA — Quero Vender */}
         <Link
           to="/cadastrar-produto"
-          className="flex items-center justify-center gap-3 py-5 px-6 rounded-2xl border-2 border-dashed border-primary/50 bg-primary/5 text-primary font-heading font-bold text-base tracking-wide hover:bg-primary/10 hover:border-primary/80 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 group"
+          className="flex items-center justify-center gap-3 rounded-2xl border-2 border-dashed border-primary/50 bg-primary/5 px-6 py-5 font-heading text-base font-bold tracking-wide text-primary transition-all duration-200 hover:scale-[1.01] hover:border-primary/80 hover:bg-primary/10 active:scale-[0.99] md:self-start md:px-8 group"
         >
           <PlusCircle
             size={22}

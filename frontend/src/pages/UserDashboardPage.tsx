@@ -15,7 +15,7 @@ export default function UserDashboardPage() {
     <AppShell>
       <Header title="Minha conta" />
 
-      <main className="flex flex-1 flex-col gap-5 overflow-y-auto px-4 pb-24 pt-6">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 overflow-y-auto px-4 pb-8 pt-6 md:px-8 lg:px-10 lg:pb-10">
         <header className="flex flex-col gap-2">
           <p className="text-xs font-bold uppercase tracking-wider text-primary">
             Area do usuario
@@ -48,13 +48,15 @@ export default function UserDashboardPage() {
         )}
 
         {!isLoading && profile && (
-          <>
+          <div className="grid gap-5 xl:grid-cols-[minmax(0,0.95fr)_minmax(20rem,0.55fr)] xl:items-start">
             <UserInfoCard profile={profile} />
-            <DashboardActions />
-            <section aria-label="Sair da conta" className="rounded-2xl bg-muted/40 p-4">
-              <LogoutButton />
-            </section>
-          </>
+            <div className="flex flex-col gap-5">
+              <DashboardActions />
+              <section aria-label="Sair da conta" className="rounded-2xl bg-muted/40 p-4">
+                <LogoutButton />
+              </section>
+            </div>
+          </div>
         )}
       </main>
 

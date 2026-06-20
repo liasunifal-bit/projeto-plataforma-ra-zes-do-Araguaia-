@@ -39,7 +39,7 @@ export function DashboardActions() {
         </h2>
       </header>
 
-      <nav aria-label="Navegacao da conta" className="grid gap-3 sm:grid-cols-2">
+      <nav aria-label="Navegacao da conta" className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
         {actions.map((action) => {
           const Icon = action.icon
 

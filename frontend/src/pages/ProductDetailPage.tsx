@@ -13,7 +13,7 @@ export default function ProductDetailPage() {
     <AppShell>
       <Header title="Produto" />
 
-      <main className="flex flex-1 flex-col gap-5 overflow-y-auto px-4 pb-6 pt-6">
+      <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-5 overflow-y-auto px-4 pb-8 pt-6 md:px-8 lg:px-10 lg:pb-10">
         {isLoading && (
           <p className="rounded-2xl bg-white p-5 text-center text-sm font-bold text-foreground/60">
             Carregando produto...
