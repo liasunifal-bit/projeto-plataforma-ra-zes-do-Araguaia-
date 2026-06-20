@@ -44,7 +44,7 @@ export default function AddProductPage() {
         price: Number(form.get('price')),
         unit: String(form.get('unit') || ''),
         locationName: String(form.get('location')),
-        publish: true,
+        publish: false, // produto nasce como draft — aguarda aprovação do admin
       })
 
       const image = form.get('image')
@@ -70,7 +70,7 @@ export default function AddProductPage() {
       }
 
       formElement.reset()
-      setMessage('Produto publicado com sucesso.')
+      setMessage('Produto enviado para aprovacao. Em breve estara disponivel no catalogo.')
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Nao foi possivel cadastrar o produto.')
     } finally {
@@ -132,7 +132,7 @@ export default function AddProductPage() {
           <Field label="Foto" name="image" type="file" accept="image/jpeg,image/png,image/webp" />
           <Field label="Audio" name="audio" type="file" accept="audio/mpeg,audio/mp4,audio/webm,audio/ogg" />
           <button disabled={isSubmitting} className="rounded-xl bg-primary p-3 font-bold text-white">
-            {isSubmitting ? 'Publicando...' : 'Publicar produto'}
+            {isSubmitting ? 'Enviando...' : 'Cadastrar produto'}
           </button>
           {message && <p role="status" className="rounded-xl bg-muted p-3 text-sm">{message}</p>}
         </form>
