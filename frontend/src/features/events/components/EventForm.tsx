@@ -163,7 +163,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
         />
 
         {/* 5. Coordenadas Exibidas (Read-only) */}
-        <div className="grid grid-cols-2 gap-3 bg-stone-50 p-4 rounded-2xl border border-stone-100">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 bg-stone-50 p-4 rounded-2xl border border-stone-100">
           <div className="flex flex-col gap-1">
             <span className="text-[10px] font-black uppercase text-stone-400">Latitude</span>
             <input
@@ -185,7 +185,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
         </div>
 
         {/* 6. Datas */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="event-starts" className="text-xs font-black text-stone-700 uppercase tracking-wider flex items-center gap-1">
               <Calendar className="h-4 w-4 text-stone-400" />
@@ -217,7 +217,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
         </div>
 
         {/* 7. Categoria e Status */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="event-category" className="text-xs font-black text-stone-700 uppercase tracking-wider">
               Categoria

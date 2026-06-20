@@ -101,7 +101,7 @@ export default function AdminDashboardPage() {
       <AdminHeader />
 
       {/* Conteúdo Principal */}
-      <main className="flex flex-col gap-7 px-4 pt-6 pb-6 overflow-y-auto font-sans bg-stone-50/50">
+      <main className="flex flex-col gap-7 px-4 pt-6 pb-6 overflow-y-auto font-sans bg-stone-50/50 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         
         {/* Seção 1 — Saudação */}
         <section className="flex items-center justify-between bg-white border border-border/40 p-4 rounded-3xl shadow-xs">
@@ -130,7 +130,7 @@ export default function AdminDashboardPage() {
             Métricas Gerais
           </h3>
           
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-4">
             {/* Total Vendedores */}
             <div className="bg-white border-l-4 border-l-[#1E5F8B] border border-border/40 rounded-2xl p-4 flex flex-col gap-1 text-left relative overflow-hidden shadow-xs">
               <div className="flex items-center justify-between text-[#1E5F8B]">
@@ -204,7 +204,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Gráfico de Anéis SVG Customizado */}
-          <div className="flex items-center justify-around gap-2 pt-2">
+          <div className="flex items-center justify-around gap-2 pt-2 md:justify-center md:gap-10">
             <div className="relative w-28 h-28 flex items-center justify-center shrink-0">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
                 {/* Background Circle */}
@@ -328,7 +328,7 @@ export default function AdminDashboardPage() {
             Filas de Análise
           </h3>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 lg:grid lg:grid-cols-3">
             {/* Vendedores Card */}
             <Link 
               to="/admin/vendedores"
