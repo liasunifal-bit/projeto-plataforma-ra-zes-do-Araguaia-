@@ -79,7 +79,6 @@ export function UserInfoCard({ profile }: UserInfoCardProps) {
       setAvatarUrl(newAvatarUrl)
       
       // Auto-salvar quando subir o avatar
-      const client = requireSupabase()
       await client.auth.updateUser({
         data: { avatar_url: newAvatarUrl }
       })
