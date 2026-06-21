@@ -34,6 +34,7 @@ export function useUserDashboardProfile(): UserDashboardProfileState {
     role,
     // created_at vem do objeto User do Supabase no formato ISO 8601
     createdAt: user.created_at,
+    avatarUrl: user.user_metadata?.avatar_url as string | undefined,
   }
 
   return { profile, isLoading: false, errorMessage: null }

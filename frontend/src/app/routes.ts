@@ -13,6 +13,8 @@ export const appRoutes = {
   addProduct: '/cadastrar-produto',
   addEvent: '/cadastrar-evento',
   userDashboard: '/minha-conta',
+  myProducts: '/meus-produtos',
+  editProduct: '/editar-produto/:productId',
 
   // Rotas de admin — exigem login e role 'admin'
   admin: '/admin',

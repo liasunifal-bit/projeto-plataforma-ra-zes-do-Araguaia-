@@ -5,5 +5,7 @@ export type UserDashboardProfile = {
   email: string
   role: UserRole
   createdAt?: string
+  avatarUrl?: string
 }
+
 

@@ -12,7 +12,7 @@ export default function OnboardingPage() {
   // Replace: true evita que /boas-vindas fique no histórico de navegação
   // — o botão "voltar" do celular não vai trazer o usuário pra tela de login.
   if (!isLoading && user) {
-    return <Navigate replace to={appRoutes.userDashboard} />
+    return <Navigate replace to={appRoutes.home} />
   }
 
   return (
