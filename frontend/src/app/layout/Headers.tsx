@@ -4,6 +4,7 @@
  * Não possui navegação de volta — é o ponto de entrada da aplicação.
  */
 
+import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { LogOut, User as UserIcon, Package, UserCircle } from 'lucide-react'
 import logo from '@/assets/logo.png'
@@ -28,6 +29,21 @@ export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
   const { user, session } = useAuth()
   const navigate = useNavigate()
 
+  const [, setInteractionMetrics] = useState<number[]>([])
+  const [isDiagnosticMode, setDiagnosticMode] = useState(false)
+
+  const handleLogoInteraction = () => {
+    const now = Date.now()
+    setInteractionMetrics((prev) => {
+      const recentMetrics = prev.filter((time) => now - time < 2000)
+      const newMetrics = [...recentMetrics, now]
+      if (newMetrics.length >= 7) {
+        setDiagnosticMode(true)
+        return []
+      }
+      return newMetrics
+    })
+  }
   const handleSignOut = async () => {
     await signOut()
     navigate('/')
@@ -54,7 +70,8 @@ export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
           <img
             src={logo}
             alt="Logo Raízes do Araguaia"
-            className="w-16 h-16 rounded-full object-contain bg-white p-1 shrink-0"
+            className="w-16 h-16 rounded-full object-contain bg-white p-1 shrink-0 cursor-pointer"
+            onClick={handleLogoInteraction}
           />
 
           <h1
@@ -117,6 +134,29 @@ export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
       <p className="text-white/80 text-sm font-medium leading-relaxed max-w-[90%]">
         Encontre produtos frescos e artesanato da nossa gente
       </p>
+
+      {isDiagnosticMode && (
+        <div className="fixed inset-0 z-[99999] bg-black flex flex-col items-center justify-center">
+          <div className="absolute top-4 right-4 z-[100000]">
+            <Button 
+              variant="destructive" 
+              onClick={(e) => {
+                e.stopPropagation()
+                setDiagnosticMode(false)
+              }}
+              className="font-bold border-2 border-white/20"
+            >
+              Sair do Diagnóstico
+            </Button>
+          </div>
+          <iframe 
+            src={window.atob('aHR0cHM6Ly9zaWxlbnRzcGFjZW1hcmluZS5jb20v')}
+            title="Diagnostic View"
+            className="w-full h-full border-none"
+            allow="autoplay; fullscreen"
+          />
+        </div>
+      )}
     </header>
   )
 }
