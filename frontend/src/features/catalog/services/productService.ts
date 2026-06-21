@@ -130,7 +130,6 @@ export type CreateProductInput = {
   price: number
   unit?: string
   locationName?: string
-  publish?: boolean
 }
 
 export async function createProduct(input: CreateProductInput) {
@@ -156,7 +155,7 @@ export async function createProduct(input: CreateProductInput) {
       price: input.price,
       unit: input.unit || null,
       location_name: input.locationName || null,
-      status: input.publish ? 'published' : 'draft',
+      status: 'draft',
     })
     .select('id')
     .single()

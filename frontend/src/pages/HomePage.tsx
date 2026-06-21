@@ -15,7 +15,7 @@ export default function HomePage() {
       <Header />
 
       {/* ─────────────── CONTEÚDO PRINCIPAL ─────────────── */}
-      <main className="flex flex-col gap-7 px-4 pt-6 pb-4 overflow-y-auto">
+      <main className="flex flex-col gap-7 md:gap-8 px-4 md:px-6 pt-6 md:pt-8 pb-4 md:pb-8 overflow-y-auto">
 
         {/* Bloco de Categorias */}
         <section>

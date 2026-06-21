@@ -53,11 +53,11 @@ export function EventDetailsModal({ event, onClose }: EventDetailsModalProps) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
-      className="fixed inset-0 z-[9999] flex items-end justify-center bg-stone-900/60 p-4 backdrop-blur-sm sm:items-center"
+      className="fixed inset-0 z-[9999] flex items-end justify-center bg-stone-900/60 p-4 md:p-8 backdrop-blur-sm sm:items-center"
       onClick={onClose}
     >
       <div
-        className="relative w-full max-w-md animate-in slide-in-from-bottom duration-300 rounded-3xl border border-stone-100 bg-white p-6 shadow-2xl"
+        className="relative w-full max-w-md md:max-w-xl animate-in slide-in-from-bottom duration-300 rounded-3xl border border-stone-100 bg-white p-6 md:p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Botão de Fechar */}
@@ -76,12 +76,12 @@ export function EventDetailsModal({ event, onClose }: EventDetailsModalProps) {
         </span>
 
         {/* Título */}
-        <h2 id="modal-title" className="font-heading text-xl font-extrabold text-stone-900 mt-1 mb-4 leading-snug">
+        <h2 id="modal-title" className="font-heading text-xl md:text-2xl font-extrabold text-stone-900 mt-1 mb-4 leading-snug">
           {event.title}
         </h2>
 
         {/* Detalhes rápidos */}
-        <div className="flex flex-col gap-3 rounded-2xl bg-stone-50 p-4 mb-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 rounded-2xl bg-stone-50 p-4 md:p-5 mb-4">
           {/* Data */}
           <div className="flex items-start gap-3">
             <span className="mt-0.5 text-emerald-600">

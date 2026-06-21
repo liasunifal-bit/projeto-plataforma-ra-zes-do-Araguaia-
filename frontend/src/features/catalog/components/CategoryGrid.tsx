@@ -5,16 +5,16 @@ import { Calendar, Map } from 'lucide-react'
 
 export function CategoryGrid() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 md:gap-5">
       {/* Grade 2x2 de Categorias */}
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] gap-4 md:gap-5">
         {appCategories.map((category) => (
           <CategoryCard key={category.slug} category={category} />
         ))}
       </div>
 
       {/* Cartões Auxiliares Horizontais */}
-      <div className="flex flex-col gap-3 mt-1">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4 mt-1">
         <Link
           to="/calendario"
           className="flex items-center gap-4 p-4 bg-white rounded-2xl border border-border/30 shadow-sm hover:shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all duration-200 group"

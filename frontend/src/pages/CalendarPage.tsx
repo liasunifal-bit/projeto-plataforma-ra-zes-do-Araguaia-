@@ -89,16 +89,16 @@ export default function CalendarPage() {
         }
       />
       
-      <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 pt-6">
+      <main className="flex flex-1 flex-col gap-6 md:gap-8 overflow-y-auto px-4 md:px-6 pb-6 md:pb-8 pt-6 md:pt-8">
         {/* Bloco de Introdução */}
         <header className="flex flex-col gap-1.5">
           <span className="text-[10px] font-black uppercase tracking-wider text-emerald-600">
             Agenda Local
           </span>
-          <h1 className="font-heading text-2xl font-bold leading-tight text-stone-900">
+          <h1 className="font-heading text-2xl md:text-3xl font-bold leading-tight text-stone-900">
             Feiras e Eventos da Comunidade
           </h1>
-          <p className="text-xs font-semibold leading-relaxed text-stone-500">
+          <p className="text-xs md:text-sm font-semibold leading-relaxed text-stone-500">
             Acompanhe o calendário de feiras, mutirões de produtores e datas importantes da nossa região.
           </p>
         </header>

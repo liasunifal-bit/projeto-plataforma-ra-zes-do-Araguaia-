@@ -19,20 +19,20 @@ export function ProductDetail({ product }: ProductDetailProps) {
   )
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-border/30 bg-white shadow-sm">
+    <article className="overflow-hidden rounded-2xl border border-border/30 bg-white shadow-sm md:grid md:grid-cols-2 md:items-stretch">
       {product.imageUrl ? (
         <img
           src={product.imageUrl}
           alt={product.imageAlt || product.name}
-          className="aspect-square w-full bg-muted object-cover"
+          className="aspect-square md:h-full md:min-h-96 w-full bg-muted object-cover"
         />
       ) : (
-        <div className="flex aspect-square w-full items-center justify-center bg-primary/10 text-sm font-bold uppercase tracking-wide text-primary">
+        <div className="flex aspect-square md:h-full md:min-h-96 w-full items-center justify-center bg-primary/10 text-sm font-bold uppercase tracking-wide text-primary">
           {product.category}
         </div>
       )}
 
-      <section className="flex flex-col gap-5 p-5">
+      <section className="flex flex-col gap-5 md:gap-6 p-5 md:p-6">
         <header className="flex flex-col gap-3">
           <Link
             to="/catalogo"
@@ -46,7 +46,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             <span className="w-fit rounded-full bg-primary/10 px-3 py-1 text-xs font-bold uppercase tracking-wide text-primary">
               {product.category}
             </span>
-            <h1 className="font-heading text-2xl font-bold leading-tight text-foreground">
+            <h1 className="font-heading text-2xl md:text-3xl font-bold leading-tight text-foreground">
               {product.name}
             </h1>
             <p className="text-2xl font-bold text-accent">

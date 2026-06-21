@@ -85,14 +85,14 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
   }
 
   return (
-    <form aria-label="Login" className="flex flex-col gap-4 text-left font-sans" onSubmit={handleSubmit}>
+    <form aria-label="Login" className="flex flex-col gap-4 md:gap-5 text-left font-sans" onSubmit={handleSubmit}>
       {mode === 'signup' && (
         <label className="flex flex-col gap-1 text-sm font-bold text-stone-750">
           Nome
           <input
             required
             type="text"
-            className="rounded-xl border border-stone-200 p-3 font-normal text-xs outline-none focus:border-primary transition-colors text-stone-850"
+            className="rounded-xl border border-stone-200 p-3 md:p-3.5 font-normal text-xs md:text-sm outline-none focus:border-primary transition-colors text-stone-850"
             value={fullName}
             onChange={(event) => setFullName(event.target.value)}
           />
@@ -103,7 +103,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
         E-mail
         <input
           required
-          className="rounded-xl border border-stone-200 p-3 font-normal text-xs outline-none focus:border-primary transition-colors text-stone-850"
+          className="rounded-xl border border-stone-200 p-3 md:p-3.5 font-normal text-xs md:text-sm outline-none focus:border-primary transition-colors text-stone-850"
           type="email"
           value={email}
           onChange={(event) => setEmail(event.target.value)}
@@ -114,7 +114,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
         Senha
         <input
           required
-          className="rounded-xl border border-stone-200 p-3 font-normal text-xs outline-none focus:border-primary transition-colors text-stone-850"
+          className="rounded-xl border border-stone-200 p-3 md:p-3.5 font-normal text-xs md:text-sm outline-none focus:border-primary transition-colors text-stone-850"
           minLength={8}
           type="password"
           value={password}
@@ -123,7 +123,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
       </label>
 
       <button
-        className="rounded-xl bg-primary p-3 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 text-xs active:scale-[0.98] transition-all"
+        className="rounded-xl bg-primary p-3 md:p-3.5 font-bold text-white disabled:cursor-not-allowed disabled:opacity-60 text-xs md:text-sm active:scale-[0.98] transition-all"
         disabled={isSubmitting}
         type="submit"
       >
@@ -131,7 +131,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
       </button>
 
       <button
-        className="rounded-xl border border-stone-200 p-3 font-bold text-xs text-stone-700 hover:bg-stone-50 transition-colors"
+        className="rounded-xl border border-stone-200 p-3 md:p-3.5 font-bold text-xs md:text-sm text-stone-700 hover:bg-stone-50 transition-colors"
         type="button"
         onClick={() => void handleGoogleLogin()}
       >

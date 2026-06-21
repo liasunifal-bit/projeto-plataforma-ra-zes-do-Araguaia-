@@ -54,10 +54,10 @@ export default function AdminSellersPage() {
       <PageHeader title="Análise de Vendedores" />
 
       {/* Barra de busca e Filtros */}
-      <div className="flex flex-col gap-3 px-4 pt-4 pb-2 bg-stone-50/50">
+      <div className="flex flex-col md:flex-row md:items-center gap-3 px-4 md:px-6 pt-4 md:pt-5 pb-2 md:pb-3 bg-stone-50/50">
         
         {/* Campo de Busca */}
-        <div className="relative">
+        <div className="relative md:flex-1">
           <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
           <input
             type="text"
@@ -69,7 +69,7 @@ export default function AdminSellersPage() {
         </div>
 
         {/* Abas */}
-        <div className="flex bg-stone-100 p-1 rounded-xl">
+        <div className="flex bg-stone-100 p-1 rounded-xl md:w-auto md:min-w-64">
           {(['pending', 'approved', 'all'] as const).map((tab) => {
             const label = 
               tab === 'pending' ? 'Pendentes' :
@@ -96,7 +96,7 @@ export default function AdminSellersPage() {
       </div>
 
       {/* Conteúdo Principal */}
-      <main className="flex-1 flex flex-col gap-4 px-4 pt-3 pb-6 overflow-y-auto">
+      <main className="flex-1 flex flex-col gap-4 md:gap-5 px-4 md:px-6 pt-3 md:pt-4 pb-6 md:pb-8 overflow-y-auto">
         
         {isLoading ? (
           <div className="flex-1 flex items-center justify-center text-sm text-stone-400 font-bold">
@@ -109,14 +109,14 @@ export default function AdminSellersPage() {
             <p className="text-xs text-stone-400 mt-1 text-center">Tente mudar os termos da busca ou a aba de status.</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-3.5">
+          <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] gap-3.5">
             {filteredSellers.map((seller) => (
               <Link
                 key={seller.id}
                 to={`/admin/vendedor/${seller.id}`}
                 className="p-4 rounded-3xl border border-border/40 bg-white flex items-center justify-between hover:border-primary/30 hover:shadow-xs transition-all group"
               >
-                <div className="flex flex-col gap-1.5 text-left max-w-[85%]">
+                <div className="flex flex-col gap-1.5 text-left max-w-[85%] md:max-w-[90%]">
                   <div className="flex items-center gap-2">
                     <h3 className="font-heading font-extrabold text-stone-800 text-sm leading-tight">
                       {seller.displayName}

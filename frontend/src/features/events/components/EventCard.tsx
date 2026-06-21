@@ -75,10 +75,10 @@ export function EventCard({ event, onOpenDetails }: EventCardProps) {
   return (
     <article
       onClick={() => onOpenDetails(event)}
-      className="flex items-stretch gap-4 rounded-3xl border border-stone-100 bg-white p-4 shadow-sm transition-all hover:scale-[1.01] hover:border-emerald-200 hover:shadow-md active:scale-[0.99] cursor-pointer"
+      className="flex items-stretch gap-4 md:gap-5 rounded-3xl border border-stone-100 bg-white p-4 md:p-5 shadow-sm transition-all hover:scale-[1.01] hover:border-emerald-200 hover:shadow-md active:scale-[0.99] cursor-pointer"
     >
       {/* Badge de Data em Estilo Calendário de Mesa */}
-      <div className="flex flex-col items-center justify-center rounded-2xl bg-stone-50 border border-stone-100 px-3 py-2 w-16 text-center shrink-0">
+      <div className="flex flex-col items-center justify-center rounded-2xl bg-stone-50 border border-stone-100 px-3 md:px-4 py-2 md:py-3 w-16 md:w-20 text-center shrink-0">
         <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700">
           {monthAbbr}
         </span>
@@ -95,7 +95,7 @@ export function EventCard({ event, onOpenDetails }: EventCardProps) {
         <div className="flex items-start justify-between gap-2">
           {/* Título e Status */}
           <div className="flex flex-col gap-1.5">
-            <h3 className="font-heading text-sm font-extrabold text-stone-900 leading-snug break-words pr-2 line-clamp-2">
+            <h3 className="font-heading text-sm md:text-base font-extrabold text-stone-900 leading-snug break-words pr-2 line-clamp-2">
               {event.title}
             </h3>
             <span className={`inline-block self-start rounded-full border px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider ${statusClass}`}>

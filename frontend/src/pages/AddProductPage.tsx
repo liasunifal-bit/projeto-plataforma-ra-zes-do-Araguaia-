@@ -44,7 +44,6 @@ export default function AddProductPage() {
         price: Number(form.get('price')),
         unit: String(form.get('unit') || ''),
         locationName: String(form.get('location')),
-        publish: true,
       })
 
       const image = form.get('image')
@@ -70,7 +69,7 @@ export default function AddProductPage() {
       }
 
       formElement.reset()
-      setMessage('Produto publicado com sucesso.')
+      setMessage('Produto enviado para analise do administrador.')
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Nao foi possivel cadastrar o produto.')
     } finally {
@@ -82,7 +81,7 @@ export default function AddProductPage() {
     return (
       <AppShell>
         <PageHeader title="Cadastrar produto" />
-        <main className="flex-1 p-5">Carregando...</main>
+        <main className="flex-1 p-5 md:p-8">Carregando...</main>
         <BottomNav />
       </AppShell>
     )
@@ -92,7 +91,7 @@ export default function AddProductPage() {
     return (
       <AppShell>
         <PageHeader title="Cadastrar produto" />
-        <main className="flex flex-1 flex-col gap-4 p-5">
+        <main className="flex flex-1 flex-col gap-4 md:gap-6 p-5 md:p-8">
           <p>Entre ou crie uma conta antes de publicar um produto.</p>
           <Link to="/boas-vindas" className="rounded-xl bg-primary p-3 text-center font-bold text-white">
             Acessar minha conta
@@ -106,9 +105,9 @@ export default function AddProductPage() {
   return (
     <AppShell>
       <PageHeader title="Cadastrar produto" />
-      <main className="flex-1 overflow-y-auto p-5">
-        <form onSubmit={handleSubmit} className="mx-auto flex max-w-xl flex-col gap-4">
-          <h1 className="font-heading text-2xl font-bold">Novo anuncio</h1>
+      <main className="flex-1 overflow-y-auto p-5 md:p-8">
+        <form onSubmit={handleSubmit} className="mx-auto flex max-w-xl md:max-w-2xl flex-col gap-4 md:gap-5">
+          <h1 className="font-heading text-2xl md:text-3xl font-bold">Novo anuncio</h1>
           <Field label="Nome do vendedor" name="sellerName" required />
           <Field label="WhatsApp" name="whatsapp" type="tel" required />
           <Field label="Localidade" name="location" required />

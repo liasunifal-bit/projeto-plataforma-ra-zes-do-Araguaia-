@@ -52,10 +52,10 @@ export default function AdminProductsPage() {
       <PageHeader title="Análise de Produtos" />
 
       {/* Barra de busca e Filtros */}
-      <div className="flex flex-col gap-3 px-4 pt-4 pb-2 bg-stone-50/50">
+      <div className="flex flex-col md:flex-row md:items-center gap-3 px-4 md:px-6 pt-4 md:pt-5 pb-2 md:pb-3 bg-stone-50/50">
         
         {/* Campo de Busca */}
-        <div className="relative">
+        <div className="relative md:flex-1">
           <Search size={18} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
           <input
             type="text"
@@ -67,7 +67,7 @@ export default function AdminProductsPage() {
         </div>
 
         {/* Abas */}
-        <div className="flex bg-stone-100 p-1 rounded-xl">
+        <div className="flex bg-stone-100 p-1 rounded-xl md:w-auto md:min-w-80">
           {(['pending', 'approved', 'rejected', 'all'] as const).map((tab) => {
             const label = 
               tab === 'pending' ? 'Pendentes' :
@@ -95,7 +95,7 @@ export default function AdminProductsPage() {
       </div>
 
       {/* Conteúdo Principal */}
-      <main className="flex-1 flex flex-col gap-4 px-4 pt-3 pb-6 overflow-y-auto">
+      <main className="flex-1 flex flex-col gap-4 md:gap-5 px-4 md:px-6 pt-3 md:pt-4 pb-6 md:pb-8 overflow-y-auto">
         
         {isLoading ? (
           <div className="flex-1 flex items-center justify-center text-sm text-stone-400 font-bold">
@@ -108,7 +108,7 @@ export default function AdminProductsPage() {
             <p className="text-xs text-stone-400 mt-1 text-center">Não existem registros correspondentes a este status.</p>
           </div>
         ) : (
-          <div className="flex flex-col gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(18rem,1fr))] gap-3">
             {filteredProducts.map((product) => (
               <Link
                 key={product.id}

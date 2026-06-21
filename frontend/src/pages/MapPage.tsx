@@ -10,7 +10,7 @@ export default function MapPage() {
   return (
     <div className="min-h-screen w-full bg-muted/40 flex justify-center overflow-hidden">
       {/* Container "Celular Virtual" PWA restrito e centralizado */}
-      <div className="w-full max-w-md md:max-w-lg h-[100dvh] bg-background text-foreground flex flex-col relative shadow-2xl md:border-x md:border-border/20 overflow-hidden">
+      <div className="w-full max-w-md md:max-w-3xl lg:max-w-5xl xl:max-w-6xl h-[100dvh] bg-background text-foreground flex flex-col relative shadow-2xl md:border-x md:border-border/20 overflow-hidden">
         {/* ─────────────── CABEÇALHO ─────────────── */}
         <PageHeader title="Mapa" />
 
