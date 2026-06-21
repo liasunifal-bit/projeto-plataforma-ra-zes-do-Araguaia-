@@ -17,7 +17,7 @@ export async function listProducts(): Promise<ProductSummary[]> {
   const { data, error } = await supabase
     .from('products')
     .select(PRODUCT_SELECT)
-    .eq('status', 'published')
+    .or('status.eq.published,status.eq.draft,status.is.null')
     .order('created_at', { ascending: false })
 
   if (error) throw error
@@ -178,6 +178,31 @@ export async function attachProductMedia(
   const { data: authData } = await client.auth.getUser()
   if (!authData.user) throw new Error('Entre na sua conta para enviar arquivos.')
 
+  // Buscar e remover o arquivo antigo do Storage antes de atualizar
+  const { data: oldMedia } = await client
+    .from('product_media')
+    .select('storage_path')
+    .eq('product_id', productId)
+    .eq('media_type', media.type)
+
+  if (oldMedia && oldMedia.length > 0) {
+    const bucket = media.type === 'audio' ? 'product-audio' : 'product-images'
+    const pathsToRemove = oldMedia
+      .map(m => m.storage_path)
+      .filter(p => !p.startsWith('http')) // Não tentar deletar URLs externas se houver
+
+    if (pathsToRemove.length > 0) {
+      await client.storage.from(bucket).remove(pathsToRemove)
+    }
+  }
+
+  // Deletar as mídias antigas do banco de dados
+  await client
+    .from('product_media')
+    .delete()
+    .eq('product_id', productId)
+    .eq('media_type', media.type)
+
   const { error } = await client.from('product_media').insert({
     user_id: authData.user.id,
     product_id: productId,
@@ -187,5 +212,97 @@ export async function attachProductMedia(
     size_bytes: media.sizeBytes,
     duration_seconds: media.durationSeconds ?? null,
   })
+  if (error) throw error
+}
+
+export async function listMyProducts(): Promise<ProductSummary[]> {
+  const client = requireSupabase()
+  const { data: authData } = await client.auth.getUser()
+  if (!authData.user) throw new Error('Usuário não autenticado.')
+
+  const { data, error } = await client
+    .from('products')
+    .select(PRODUCT_SELECT)
+    .eq('user_id', authData.user.id)
+    .order('created_at', { ascending: false })
+
+  if (error) throw error
+  return Promise.all((data ?? []).map(mapProduct))
+}
+
+export async function deleteProduct(productId: string): Promise<void> {
+  const client = requireSupabase()
+  const { data: authData } = await client.auth.getUser()
+  if (!authData.user) throw new Error('Usuário não autenticado.')
+
+  // 1. Deletar os arquivos físicos do Storage primeiro
+  const { data: mediaFiles } = await client
+    .from('product_media')
+    .select('storage_path, media_type')
+    .eq('product_id', productId)
+
+  if (mediaFiles && mediaFiles.length > 0) {
+    const images = mediaFiles.filter(m => m.media_type === 'image' && !m.storage_path.startsWith('http')).map(m => m.storage_path)
+    const audios = mediaFiles.filter(m => m.media_type === 'audio' && !m.storage_path.startsWith('http')).map(m => m.storage_path)
+
+    if (images.length > 0) {
+      await client.storage.from('product-images').remove(images)
+    }
+    if (audios.length > 0) {
+      await client.storage.from('product-audio').remove(audios)
+    }
+  }
+
+  // 2. Deletar o registro no banco (cascade cuidará da tabela product_media)
+  const { error } = await client
+    .from('products')
+    .delete()
+    .eq('id', productId)
+    .eq('user_id', authData.user.id)
+
+  if (error) throw error
+}
+
+export type UpdateProductInput = {
+  productId: string
+  categorySlug?: AppCategorySlug
+  name?: string
+  description?: string
+  price?: number
+  unit?: string
+  locationName?: string
+  publish?: boolean
+}
+
+export async function updateProduct(input: UpdateProductInput) {
+  const client = requireSupabase()
+  const { data: authData } = await client.auth.getUser()
+  if (!authData.user) throw new Error('Entre na sua conta para editar o produto.')
+
+  const updates: Record<string, any> = {}
+
+  if (input.name !== undefined) updates.name = input.name
+  if (input.description !== undefined) updates.description = input.description || null
+  if (input.price !== undefined) updates.price = input.price
+  if (input.unit !== undefined) updates.unit = input.unit || null
+  if (input.locationName !== undefined) updates.location_name = input.locationName || null
+  if (input.publish !== undefined) updates.status = input.publish ? 'published' : 'draft'
+
+  if (input.categorySlug !== undefined) {
+    const { data: category, error: categoryError } = await client
+      .from('categories')
+      .select('id')
+      .eq('slug', input.categorySlug)
+      .single()
+    if (categoryError) throw categoryError
+    updates.category_id = category.id
+  }
+
+  const { error } = await client
+    .from('products')
+    .update(updates)
+    .eq('id', input.productId)
+    .eq('user_id', authData.user.id)
+
   if (error) throw error
 }

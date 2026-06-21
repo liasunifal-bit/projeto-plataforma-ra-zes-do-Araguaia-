@@ -14,7 +14,7 @@ export function useMapProducts(): ProductMapPoint[] {
     client
       .from('products')
       .select('id, name, latitude, longitude, categories!inner(slug)')
-      .eq('status', 'published')
+      .or('status.eq.published,status.eq.draft,status.is.null')
       .not('latitude', 'is', null)
       .not('longitude', 'is', null)
       .then(({ data }) => {

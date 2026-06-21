@@ -5,9 +5,9 @@ import { appRoutes } from '@/app/routes'
 
 const actions = [
   {
-    title: 'Cadastrar produto',
-    description: 'Anuncie um novo item no marketplace comunitario.',
-    href: appRoutes.addProduct,
+    title: 'Meus produtos',
+    description: 'Gerencie seus anúncios ou publique novos itens.',
+    href: appRoutes.myProducts,
     icon: PackagePlus,
   },
   {

@@ -31,7 +31,8 @@ const OnboardingPage = lazy(() => import('@/pages/OnboardingPage'))
 const AddProductPage = lazy(() => import('@/pages/AddProductPage'))
 const CreateEventPage = lazy(() => import('@/features/events/pages/CreateEventPage'))
 const UserDashboardPage = lazy(() => import('@/pages/UserDashboardPage'))
-
+const MyProductsPage = lazy(() => import('@/pages/MyProductsPage'))
+const EditProductPage = lazy(() => import('@/pages/EditProductPage'))
 // Rotas de admin — exigem login e role 'admin'
 const AdminDashboardPage = lazy(() => import('@/pages/AdminDashboardPage'))
 const AdminSellersPage = lazy(() => import('@/pages/AdminSellersPage'))
@@ -80,6 +81,22 @@ export const appRouter = createBrowserRouter([
         element: (
           <ProtectedRoute>
             <Page component={UserDashboardPage} />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: appRoutes.myProducts,
+        element: (
+          <ProtectedRoute>
+            <Page component={MyProductsPage} />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: appRoutes.editProduct,
+        element: (
+          <ProtectedRoute>
+            <Page component={EditProductPage} />
           </ProtectedRoute>
         ),
       },

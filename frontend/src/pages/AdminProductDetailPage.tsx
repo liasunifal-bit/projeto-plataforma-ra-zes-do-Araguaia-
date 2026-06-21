@@ -46,20 +46,14 @@ export default function AdminProductDetailPage() {
     setIsLoading(true)
     
     try {
-      // 1. Atualizar status do produto no banco (Supabase ou Mock)
       const newStatus = actionType === 'approve' ? 'published' : 'archived'
       await updateProductStatus(product.id, newStatus)
       
-      // Simular envio de e-mail (imprimir no console)
-      console.log(`E-mail enviado para ${product.sellerEmail} com assunto: "${subject}" e corpo: "${message}"`)
+      console.log(`Notificacao registrada — assunto: "${subject}" — mensagem: "${message}"`)
 
-      // 2. Mostrar toast de sucesso
       setToastMessage(actionType === 'approve' ? 'Produto aprovado com sucesso!' : 'Produto rejeitado.')
-      
-      // Atualizar estado local
       setProduct(prev => prev ? { ...prev, status: newStatus } : null)
       
-      // 3. Retornar ao Dashboard após um delay
       setTimeout(() => {
         navigate('/admin')
       }, 1500)
@@ -182,22 +176,24 @@ export default function AdminProductDetailPage() {
                 <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider leading-none">
                   Vendedor
                 </span>
-                <span className="text-xs font-bold mt-1 text-stone-800">{product.sellerName}</span>
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center text-stone-500 shrink-0">
-                <Mail size={16} />
-              </div>
-              <div className="flex flex-col">
-                <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider leading-none">
-                  E-mail do Proprietário
+                <span className="text-xs font-bold mt-1 text-stone-800">
+                  {product.sellerName || 'Nao informado'}
                 </span>
-                <span className="text-xs font-bold mt-1 text-stone-800">{product.sellerEmail}</span>
               </div>
-            </div>
+            {/* Email — só exibe se tiver valor */}
+            {product.sellerEmail ? (
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center text-stone-500 shrink-0">
+                  <Mail size={16} />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider leading-none">
+                    E-mail do Proprietário
+                  </span>
+                  <span className="text-xs font-bold mt-1 text-stone-800">{product.sellerEmail}</span>
+                </div>
+              </div>
+            ) : null}
 
             {/* Data Cadastro */}
             <div className="flex items-center gap-3">
@@ -239,7 +235,7 @@ export default function AdminProductDetailPage() {
 
       </main>
 
-      {/* Modal de E-mail de Aprovação/Rejeição */}
+      {/* Modal de notificação — email fica vazio até implementar Edge Function */}
       <ApprovalEmailModal
         isOpen={emailModalOpen}
         onClose={() => setEmailModalOpen(false)}
@@ -250,7 +246,6 @@ export default function AdminProductDetailPage() {
         itemType="product"
       />
 
-      {/* Notificação Toast */}
       {toastMessage && (
         <ToastNotification
           message={toastMessage}
