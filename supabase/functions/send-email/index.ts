@@ -107,7 +107,7 @@ serve(async (req) => {
         <body>
           <div class="container">
             <div class="header">
-              <img src="https://ngxclqhopsrzvyasbtcj.supabase.co/storage/v1/object/public/avatars/logo.png" alt="Logo Raízes do Araguaia" />
+              <img src="https://ngxclqhopsrzvyasbtcj.supabase.co/storage/v1/object/public/product-images/logo.png" alt="Logo Raízes do Araguaia" />
               <h1>Plataforma Raízes do Araguaia</h1>
             </div>
             <div class="content">
