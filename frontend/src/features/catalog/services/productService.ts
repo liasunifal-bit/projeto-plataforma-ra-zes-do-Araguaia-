@@ -17,7 +17,7 @@ export async function listProducts(): Promise<ProductSummary[]> {
   const { data, error } = await supabase
     .from('products')
     .select(PRODUCT_SELECT)
-    .eq('status', 'published')
+    .or('status.eq.published,status.eq.draft,status.is.null')
     .order('created_at', { ascending: false })
 
   if (error) throw error
