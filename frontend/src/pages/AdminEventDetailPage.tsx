@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Check, X, ShieldCheck, Calendar, MapPin, User } from 'lucide-react'
 import { AppShell } from '@/app/layout/AppShell'
 import { PageHeader } from '@/app/layout/PageHeader'
-import { listAdminEvents, updateEventStatus, type AdminEvent } from '@/features/admin/services/adminService'
+import { listAdminEvents, updateEventStatus, type AdminEvent, sendEmailNotification } from '@/features/admin/services/adminService'
 import { ApprovalEmailModal } from '@/features/admin/components/ApprovalEmailModal'
 import { ToastNotification } from '@/features/admin/components/ToastNotification'
 
@@ -49,6 +49,15 @@ export default function AdminEventDetailPage() {
       // 1. Atualizar status do evento no banco (Supabase ou Mock)
       const newStatus = actionType === 'approve' ? 'published' : 'archived'
       await updateEventStatus(event.id, newStatus)
+      
+      if (event.creatorEmail) {
+        await sendEmailNotification({
+          toEmail: event.creatorEmail,
+          subject,
+          message,
+          itemName: event.title,
+        })
+      }
       
       // Simular envio de e-mail (imprimir no console)
       console.log(`E-mail enviado para ${event.creatorEmail} com assunto: "${subject}" e corpo: "${message}"`)

@@ -244,3 +244,44 @@ export async function updateEventStatus(
 
   if (error) throw error
 }
+
+export async function sendEmailNotification(params: {
+  toEmail: string
+  subject: string
+  message: string
+  itemName: string
+}) {
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+  if (!serviceId || !templateId || !publicKey) {
+    console.warn(
+      'EmailJS não configurado. Adicione VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID e VITE_EMAILJS_PUBLIC_KEY em .env.local'
+    )
+    return
+  }
+
+  const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      service_id: serviceId,
+      template_id: templateId,
+      user_id: publicKey,
+      template_params: {
+        to_email: params.toEmail,
+        subject: params.subject,
+        message: params.message,
+        item_name: params.itemName,
+      },
+    }),
+  })
+
+  if (!response.ok) {
+    const errorText = await response.text()
+    throw new Error(`Erro ao enviar e-mail via EmailJS: ${errorText}`)
+  }
+}

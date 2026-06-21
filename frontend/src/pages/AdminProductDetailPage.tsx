@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Check, X, ShieldCheck, ShoppingBag, User, Calendar, Volume2, Mail } from 'lucide-react'
 import { AppShell } from '@/app/layout/AppShell'
 import { PageHeader } from '@/app/layout/PageHeader'
-import { listAdminProducts, updateProductStatus, type AdminProduct } from '@/features/admin/services/adminService'
+import { listAdminProducts, updateProductStatus, type AdminProduct, sendEmailNotification } from '@/features/admin/services/adminService'
 import { ApprovalEmailModal } from '@/features/admin/components/ApprovalEmailModal'
 import { ToastNotification } from '@/features/admin/components/ToastNotification'
 
@@ -48,6 +48,15 @@ export default function AdminProductDetailPage() {
     try {
       const newStatus = actionType === 'approve' ? 'published' : 'archived'
       await updateProductStatus(product.id, newStatus)
+      
+      if (product.sellerEmail) {
+        await sendEmailNotification({
+          toEmail: product.sellerEmail,
+          subject,
+          message,
+          itemName: product.name,
+        })
+      }
       
       console.log(`Notificacao registrada — assunto: "${subject}" — mensagem: "${message}"`)
 

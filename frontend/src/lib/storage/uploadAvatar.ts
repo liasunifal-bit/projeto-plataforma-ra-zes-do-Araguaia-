@@ -10,7 +10,7 @@ export async function uploadAvatar(file: File): Promise<string> {
   const path = `${authData.user.id}/${Date.now()}.${extension}`
   
   // Utiliza o bucket 'avatars'. Caso o bucket não exista no backend do Supabase, o upload irá falhar.
-  const { data, error } = await client.storage.from('avatars').upload(path, file, {
+  const { error } = await client.storage.from('avatars').upload(path, file, {
     upsert: true,
   })
   
