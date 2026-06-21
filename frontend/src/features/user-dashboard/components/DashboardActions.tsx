@@ -11,7 +11,7 @@ const actions = [
     icon: PackagePlus,
   },
   {
-    title: 'Ver catalogo',
+    title: 'Ver catálogo',
     description: 'Acompanhe os produtos publicados pela comunidade.',
     href: appRoutes.catalog,
     icon: Store,
@@ -24,7 +24,7 @@ const actions = [
   },
   {
     title: 'Escolinha',
-    description: 'Acesse conteudos de apoio para vender melhor.',
+    description: 'Acesse conteúdos de apoio para vender melhor.',
     href: appRoutes.school,
     icon: GraduationCap,
   },
@@ -35,11 +35,11 @@ export function DashboardActions() {
     <section aria-labelledby="dashboard-actions-title" className="flex flex-col gap-3 md:gap-4">
       <header>
         <h2 id="dashboard-actions-title" className="font-heading text-lg font-bold text-foreground">
-          Acoes rapidas
+          Ações rápidas
         </h2>
       </header>
 
-      <nav aria-label="Navegacao da conta" className="grid gap-3 md:gap-4 sm:grid-cols-2">
+      <nav aria-label="Navegação da conta" className="grid gap-3 md:gap-4 sm:grid-cols-2">
         {actions.map((action) => {
           const Icon = action.icon
 

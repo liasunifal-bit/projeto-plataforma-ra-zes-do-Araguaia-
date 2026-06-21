@@ -18,13 +18,13 @@ export default function UserDashboardPage() {
       <main className="flex flex-1 flex-col gap-5 overflow-y-auto px-4 pb-24 pt-6 md:px-6 lg:px-8 lg:pb-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         <header className="flex flex-col gap-2">
           <p className="text-xs font-bold uppercase tracking-wider text-primary">
-            Area do usuario
+            Área do usuário
           </p>
           <h1 className="font-heading text-2xl font-bold leading-tight text-foreground">
             Painel da conta
           </h1>
           <p className="text-sm font-medium leading-relaxed text-foreground/60">
-            Acompanhe seus dados publicos e acesse as principais areas do marketplace.
+            Acompanhe seus dados públicos e acesse as principais áreas do marketplace.
           </p>
         </header>
 

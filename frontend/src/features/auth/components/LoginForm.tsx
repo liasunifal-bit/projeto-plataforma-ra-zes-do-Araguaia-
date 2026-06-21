@@ -42,6 +42,7 @@ export function LoginForm({ redirectTo }: LoginFormProps) {
         const destination = redirectTo ?? state?.from?.pathname ?? appRoutes.home
         navigate(destination, { replace: true })
       }
+
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Não foi possível continuar.')
     } finally {

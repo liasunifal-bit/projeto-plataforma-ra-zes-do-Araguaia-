@@ -139,6 +139,7 @@ export function UserInfoCard({ profile }: UserInfoCardProps) {
             )}
           </div>
         </div>
+
         <div>
           {isEditing ? (
             <div className="flex items-center gap-2">
