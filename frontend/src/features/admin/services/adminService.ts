@@ -114,15 +114,12 @@ export async function listAdminSellers(): Promise<AdminSeller[]> {
     .from('seller_profiles')
     .select(`
       id, user_id, display_name, description, whatsapp_number, pix_key, pix_key_type,
-      location_name, latitude, longitude, is_published, created_at
+      location_name, latitude, longitude, is_published, created_at, email
     `)
     .order('created_at', { ascending: false })
 
   if (error) throw error
 
-  // Busca emails reais de auth.users via RPC pra não expor a tabela diretamente.
-  // Por enquanto retorna string vazia — email real requer função no banco ou
-  // service role key (não disponível no frontend por segurança).
   return (data ?? []).map(item => ({
     id: item.id,
     userId: item.user_id,
@@ -136,7 +133,7 @@ export async function listAdminSellers(): Promise<AdminSeller[]> {
     longitude: item.longitude ? Number(item.longitude) : null,
     isPublished: item.is_published,
     createdAt: item.created_at,
-    email: '',
+    email: item.email ?? '',
   }))
 }
 
@@ -149,7 +146,7 @@ export async function listAdminProducts(): Promise<AdminProduct[]> {
       id, user_id, seller_id, category_id, name, description, price, unit,
       stock_status, status, created_at,
       categories(slug),
-      seller_profiles(display_name)
+      seller_profiles(display_name, email)
     `)
     .order('created_at', { ascending: false })
 
@@ -175,7 +172,7 @@ export async function listAdminProducts(): Promise<AdminProduct[]> {
       status: item.status,
       createdAt: item.created_at,
       sellerName: sell?.display_name ?? 'Desconhecido',
-      sellerEmail: '',
+      sellerEmail: sell?.email ?? '',
     }
   })
 }
@@ -188,7 +185,7 @@ export async function listAdminEvents(): Promise<AdminEvent[]> {
     .select(`
       id, user_id, title, description, starts_at, ends_at,
       location_name, latitude, longitude, status, created_at,
-      profiles(full_name)
+      profiles(full_name, email)
     `)
     .order('created_at', { ascending: false })
 
@@ -210,7 +207,7 @@ export async function listAdminEvents(): Promise<AdminEvent[]> {
       status: item.status,
       createdAt: item.created_at,
       creatorName: prof?.full_name ?? 'Organizador',
-      creatorEmail: '',
+      creatorEmail: prof?.email ?? '',
     }
   })
 }
