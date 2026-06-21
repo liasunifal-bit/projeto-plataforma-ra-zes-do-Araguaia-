@@ -70,12 +70,12 @@ export function ProductCard({ product }: ProductCardProps) {
           </button>
         </div>
 
-        <div className="flex flex-grow flex-col p-3.5 text-left">
+        <div className="flex flex-grow flex-col p-3.5 md:p-4 text-left">
           <span className="mb-1 text-[9px] font-bold uppercase leading-none tracking-widest text-muted-foreground">
             {product.sellerName} - {product.location}
           </span>
 
-          <h3 className="mb-2 line-clamp-2 flex-grow font-heading text-sm font-bold leading-tight tracking-normal text-foreground transition-colors group-hover:text-primary">
+          <h3 className="mb-2 line-clamp-2 flex-grow font-heading text-sm md:text-base font-bold leading-tight tracking-normal text-foreground transition-colors group-hover:text-primary">
             {product.name}
           </h3>
 

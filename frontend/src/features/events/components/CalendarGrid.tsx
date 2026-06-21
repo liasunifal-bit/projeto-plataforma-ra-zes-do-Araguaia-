@@ -103,7 +103,7 @@ export function CalendarGrid({ events, selectedDate, onDateSelect }: CalendarGri
   }
 
   return (
-    <div className="rounded-3xl border border-stone-100 bg-stone-50/45 p-4 shadow-sm">
+    <div className="rounded-3xl border border-stone-100 bg-stone-50/45 p-4 md:p-5 shadow-sm">
       {/* Controles de Cabeçalho do Mês */}
       <header className="mb-4 flex items-center justify-between">
         <h3 className="font-heading text-sm font-bold text-stone-800">
@@ -130,7 +130,7 @@ export function CalendarGrid({ events, selectedDate, onDateSelect }: CalendarGri
       </header>
 
       {/* Dias da Semana */}
-      <div className="grid grid-cols-7 gap-1 text-center mb-1">
+      <div className="grid grid-cols-7 gap-1 md:gap-2 text-center mb-1">
         {WEEKDAYS.map((day, idx) => (
           <span key={idx} className="text-[10px] font-black uppercase tracking-wider text-stone-400">
             {day}
@@ -139,7 +139,7 @@ export function CalendarGrid({ events, selectedDate, onDateSelect }: CalendarGri
       </div>
 
       {/* Grid de Dias */}
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 gap-1 md:gap-2">
         {calendarCells.map((cell, idx) => {
           const cellKey = `${cell.date.getFullYear()}-${cell.date.getMonth()}-${cell.date.getDate()}`
           const isToday = cellKey === todayKey
@@ -151,7 +151,7 @@ export function CalendarGrid({ events, selectedDate, onDateSelect }: CalendarGri
               key={idx}
               type="button"
               onClick={() => handleDayClick(cell.date)}
-              className={`relative flex h-8 w-full items-center justify-center rounded-xl text-xs font-bold transition-all focus:outline-none focus:ring-1 focus:ring-emerald-500/30 ${
+              className={`relative flex h-8 md:h-10 w-full items-center justify-center rounded-xl text-xs md:text-sm font-bold transition-all focus:outline-none focus:ring-1 focus:ring-emerald-500/30 ${
                 !cell.isCurrentMonth ? 'text-stone-300' : 'text-stone-700'
               } ${
                 isSelected

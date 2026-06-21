@@ -1,0 +1,2 @@
+export { getCurrentUserProfile } from './userProfileService'
+

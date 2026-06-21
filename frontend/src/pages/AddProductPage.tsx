@@ -45,7 +45,6 @@ export default function AddProductPage() {
         price: Number(form.get('price')),
         unit: String(form.get('unit') || ''),
         locationName: String(form.get('location')),
-        publish: true,
       })
 
       const image = form.get('image')

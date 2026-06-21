@@ -44,7 +44,6 @@ export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
       return newMetrics
     })
   }
-
   const handleSignOut = async () => {
     await signOut()
     navigate('/')

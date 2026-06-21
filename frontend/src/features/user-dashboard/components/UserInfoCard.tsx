@@ -96,9 +96,9 @@ export function UserInfoCard({ profile }: UserInfoCardProps) {
   return (
     <section
       aria-labelledby="user-info-title"
-      className="rounded-2xl border border-border/30 bg-white p-5 shadow-sm"
+      className="rounded-2xl border border-border/30 bg-white p-5 md:p-6 shadow-sm"
     >
-      <header className="mb-5 flex items-center justify-between gap-3">
+      <header className="mb-5 md:mb-6 flex items-center justify-between gap-3">
         <div className="flex items-center gap-3">
           <div className="relative">
             <Avatar className="h-14 w-14 border border-border cursor-pointer group" onClick={() => fileInputRef.current?.click()}>
@@ -170,8 +170,8 @@ export function UserInfoCard({ profile }: UserInfoCardProps) {
         </div>
       </header>
 
-      <dl className="grid gap-3 sm:grid-cols-2">
-        <div className="rounded-2xl bg-muted/40 p-4">
+      <dl className="grid gap-3 md:gap-4 sm:grid-cols-2">
+        <div className="rounded-2xl bg-muted/40 p-4 md:p-5">
           <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-foreground/45">
             <UserRound aria-hidden="true" size={14} />
             Nome completo
@@ -179,7 +179,7 @@ export function UserInfoCard({ profile }: UserInfoCardProps) {
           <dd className="mt-2 text-sm font-bold text-foreground">{fullName}</dd>
         </div>
 
-        <div className="rounded-2xl bg-muted/40 p-4">
+        <div className="rounded-2xl bg-muted/40 p-4 md:p-5">
           <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-foreground/45">
             <Mail aria-hidden="true" size={14} />
             E-mail
@@ -187,7 +187,7 @@ export function UserInfoCard({ profile }: UserInfoCardProps) {
           <dd className="mt-2 break-words text-sm font-bold text-foreground">{profile.email}</dd>
         </div>
 
-        <div className="rounded-2xl bg-muted/40 p-4">
+        <div className="rounded-2xl bg-muted/40 p-4 md:p-5">
           <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-foreground/45">
             <ShieldCheck aria-hidden="true" size={14} />
             Perfil
@@ -195,7 +195,7 @@ export function UserInfoCard({ profile }: UserInfoCardProps) {
           <dd className="mt-2 text-sm font-bold text-foreground">{roleLabels[profile.role]}</dd>
         </div>
 
-        <div className="rounded-2xl bg-muted/40 p-4">
+        <div className="rounded-2xl bg-muted/40 p-4 md:p-5">
           <dt className="flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-foreground/45">
             <CalendarDays aria-hidden="true" size={14} />
             Cadastro

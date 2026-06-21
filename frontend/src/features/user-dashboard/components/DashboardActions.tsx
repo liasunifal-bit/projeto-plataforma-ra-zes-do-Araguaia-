@@ -32,14 +32,14 @@ const actions = [
 
 export function DashboardActions() {
   return (
-    <section aria-labelledby="dashboard-actions-title" className="flex flex-col gap-3">
+    <section aria-labelledby="dashboard-actions-title" className="flex flex-col gap-3 md:gap-4">
       <header>
         <h2 id="dashboard-actions-title" className="font-heading text-lg font-bold text-foreground">
           Ações rápidas
         </h2>
       </header>
 
-      <nav aria-label="Navegação da conta" className="grid gap-3 sm:grid-cols-2">
+      <nav aria-label="Navegação da conta" className="grid gap-3 md:gap-4 sm:grid-cols-2">
         {actions.map((action) => {
           const Icon = action.icon
 
@@ -47,7 +47,7 @@ export function DashboardActions() {
             <Link
               key={action.href}
               to={action.href}
-              className="flex min-h-28 gap-3 rounded-2xl border border-border/30 bg-white p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              className="flex min-h-28 md:min-h-32 gap-3 md:gap-4 rounded-2xl border border-border/30 bg-white p-4 md:p-5 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
             >
               <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                 <Icon aria-hidden="true" size={20} />

@@ -46,11 +46,11 @@ export function ApprovalEmailModal({
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 p-4 backdrop-blur-xs">
-      <div className="w-full max-w-sm bg-white rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-stone-900/60 p-4 md:p-8 backdrop-blur-xs">
+      <div className="w-full max-w-sm md:max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-200">
         
         {/* Header */}
-        <div className="bg-primary text-white p-4 flex items-center justify-between">
+        <div className="bg-primary text-white p-4 md:p-5 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Mail size={20} />
             <h3 className="font-heading font-bold text-sm">Enviar Notificação</h3>
@@ -70,7 +70,7 @@ export function ApprovalEmailModal({
             e.preventDefault()
             onConfirm(subject, message)
           }}
-          className="p-5 flex flex-col gap-4 text-left"
+          className="p-5 md:p-6 flex flex-col gap-4 md:gap-5 text-left"
         >
           {/* Destinatário */}
           <div className="flex flex-col gap-1">
@@ -81,7 +81,7 @@ export function ApprovalEmailModal({
               type="email"
               value={recipientEmail}
               disabled
-              className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-200 text-stone-500 text-xs font-semibold outline-none cursor-not-allowed"
+              className="w-full px-3.5 md:px-4 py-2.5 md:py-3 rounded-xl bg-stone-50 border border-stone-200 text-stone-500 text-xs md:text-sm font-semibold outline-none cursor-not-allowed"
             />
           </div>
 
@@ -96,7 +96,7 @@ export function ApprovalEmailModal({
               required
               value={subject}
               onChange={(e) => setSubject(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs font-semibold outline-none focus:border-primary transition-colors text-stone-800"
+              className="w-full px-3.5 md:px-4 py-2.5 md:py-3 rounded-xl border border-stone-200 text-xs md:text-sm font-semibold outline-none focus:border-primary transition-colors text-stone-800"
             />
           </div>
 
@@ -111,22 +111,22 @@ export function ApprovalEmailModal({
               rows={6}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="w-full px-3.5 py-2.5 rounded-xl border border-stone-200 text-xs font-medium outline-none focus:border-primary transition-colors text-stone-800 resize-none leading-relaxed"
+              className="w-full px-3.5 md:px-4 py-2.5 md:py-3 rounded-xl border border-stone-200 text-xs md:text-sm font-medium outline-none focus:border-primary transition-colors text-stone-800 resize-none leading-relaxed"
             />
           </div>
 
           {/* Ações */}
-          <div className="flex gap-2.5 border-t border-border/40 pt-4 mt-1">
+          <div className="flex flex-col md:flex-row gap-2.5 md:gap-3 border-t border-border/40 pt-4 mt-1">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-2.5 rounded-xl border border-stone-200 hover:bg-stone-50 transition-colors text-stone-600 font-bold text-xs active:scale-[0.98]"
+              className="flex-1 py-2.5 md:py-3 rounded-xl border border-stone-200 hover:bg-stone-50 transition-colors text-stone-600 font-bold text-xs md:text-sm active:scale-[0.98]"
             >
               Cancelar
             </button>
             <button
               type="submit"
-              className="flex-1 py-2.5 rounded-xl bg-primary text-white font-bold text-xs flex items-center justify-center gap-1.5 hover:bg-primary/95 transition-colors active:scale-[0.98]"
+              className="flex-1 py-2.5 md:py-3 rounded-xl bg-primary text-white font-bold text-xs md:text-sm flex items-center justify-center gap-1.5 hover:bg-primary/95 transition-colors active:scale-[0.98]"
             >
               <Send size={13} />
               Enviar E-mail

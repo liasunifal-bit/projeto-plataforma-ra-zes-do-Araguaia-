@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { Phone, MapPin, Key, Calendar, ShieldAlert, Check, X, ShieldCheck } from 'lucide-react'
 import { AppShell } from '@/app/layout/AppShell'
 import { PageHeader } from '@/app/layout/PageHeader'
-import { listAdminSellers, updateSellerStatus, type AdminSeller } from '@/features/admin/services/adminService'
+import { listAdminSellers, updateSellerStatus, type AdminSeller, sendEmailNotification } from '@/features/admin/services/adminService'
 import { ApprovalEmailModal } from '@/features/admin/components/ApprovalEmailModal'
 import { ToastNotification } from '@/features/admin/components/ToastNotification'
 
@@ -49,6 +49,15 @@ export default function AdminSellerDetailPage() {
       // 1. Atualizar no banco de dados (Supabase ou Mock)
       const isPublished = actionType === 'approve'
       await updateSellerStatus(seller.id, isPublished)
+      
+      if (seller.email) {
+        await sendEmailNotification({
+          toEmail: seller.email,
+          subject,
+          message,
+          itemName: seller.displayName,
+        })
+      }
       
       // Simular envio de e-mail (imprimir no console)
       console.log(`E-mail enviado para ${seller.email} com assunto: "${subject}" e corpo: "${message}"`)

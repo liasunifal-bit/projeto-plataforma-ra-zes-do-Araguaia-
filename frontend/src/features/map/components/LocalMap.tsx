@@ -84,9 +84,9 @@ export function LocalMap({
   ];
 
   return (
-    <div className="w-full flex-1 h-full bg-muted/20 rounded-2xl overflow-hidden shadow-inner relative">
+    <div className="w-full flex-1 h-full bg-muted/20 rounded-2xl md:rounded-3xl overflow-hidden shadow-inner relative">
       {/* Vignette effect (sombra interna) via Tailwind */}
-      <div className="pointer-events-none absolute inset-0 z-[2000] shadow-[inset_0_0_20px_rgba(0,0,0,0.15)] rounded-2xl"></div>
+      <div className="pointer-events-none absolute inset-0 z-[2000] shadow-[inset_0_0_20px_rgba(0,0,0,0.15)] rounded-2xl md:rounded-3xl"></div>
       
       <MapContainer
         center={defaultCenter}
