@@ -64,8 +64,8 @@ export function LocationPicker({ latitude, longitude, onChange }: LocationPicker
   }
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between text-xs font-bold text-stone-600">
+    <div className="flex flex-col gap-2 md:gap-3">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 text-xs md:text-sm font-bold text-stone-600">
         <label className="flex items-center gap-1.5">
           <MapPin className="h-4 w-4 text-emerald-600" />
           <span>Localização no Mapa</span>
@@ -80,9 +80,9 @@ export function LocationPicker({ latitude, longitude, onChange }: LocationPicker
         </button>
       </div>
 
-      <div className="relative h-60 w-full overflow-hidden rounded-2xl border border-stone-200 shadow-inner">
+      <div className="relative h-60 md:h-80 lg:h-96 w-full overflow-hidden rounded-2xl md:rounded-3xl border border-stone-200 shadow-inner">
         {/* Sombra interna para profundidade visual */}
-        <div className="pointer-events-none absolute inset-0 z-[2000] shadow-[inset_0_0_15px_rgba(0,0,0,0.15)] rounded-2xl"></div>
+        <div className="pointer-events-none absolute inset-0 z-[2000] shadow-[inset_0_0_15px_rgba(0,0,0,0.15)] rounded-2xl md:rounded-3xl"></div>
 
         <MapContainer
           center={defaultCenter}
@@ -127,13 +127,13 @@ export function LocationPicker({ latitude, longitude, onChange }: LocationPicker
         <button
           type="button"
           onClick={() => setIsSatellite(!isSatellite)}
-          className="absolute bottom-3 right-3 z-[1000] rounded-xl bg-white px-3 py-1.5 text-[10px] font-black uppercase tracking-wider text-stone-700 shadow-md border border-stone-100 hover:bg-stone-50 active:scale-95 transition-all"
+          className="absolute bottom-3 md:bottom-4 right-3 md:right-4 z-[1000] rounded-xl bg-white px-3 md:px-4 py-1.5 md:py-2 text-[10px] md:text-xs font-black uppercase tracking-wider text-stone-700 shadow-md border border-stone-100 hover:bg-stone-50 active:scale-95 transition-all"
         >
           {isSatellite ? 'Mapa' : 'Satélite'}
         </button>
       </div>
 
-      <p className="text-[10px] font-semibold text-stone-500 leading-normal">
+      <p className="text-[10px] md:text-xs font-semibold text-stone-500 leading-normal">
         💡 Clique em qualquer ponto no mapa acima para definir as coordenadas exatas da feira ou evento.
       </p>
     </div>

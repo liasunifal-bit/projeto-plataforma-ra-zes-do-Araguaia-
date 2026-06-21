@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { Check, X, ShieldCheck, ShoppingBag, User, Calendar, Volume2 } from 'lucide-react'
+import { Check, X, ShieldCheck, ShoppingBag, User, Calendar, Volume2, Mail } from 'lucide-react'
 import { AppShell } from '@/app/layout/AppShell'
 import { PageHeader } from '@/app/layout/PageHeader'
-import { listAdminProducts, updateProductStatus, type AdminProduct } from '@/features/admin/services/adminService'
+import { listAdminProducts, updateProductStatus, type AdminProduct, sendEmailNotification } from '@/features/admin/services/adminService'
 import { ApprovalEmailModal } from '@/features/admin/components/ApprovalEmailModal'
 import { ToastNotification } from '@/features/admin/components/ToastNotification'
 
@@ -48,6 +48,15 @@ export default function AdminProductDetailPage() {
     try {
       const newStatus = actionType === 'approve' ? 'published' : 'archived'
       await updateProductStatus(product.id, newStatus)
+      
+      if (product.sellerEmail) {
+        await sendEmailNotification({
+          toEmail: product.sellerEmail,
+          subject,
+          message,
+          itemName: product.name,
+        })
+      }
       
       console.log(`Notificacao registrada — assunto: "${subject}" — mensagem: "${message}"`)
 
@@ -181,12 +190,11 @@ export default function AdminProductDetailPage() {
                 </span>
               </div>
             </div>
-
             {/* Email — só exibe se tiver valor */}
             {product.sellerEmail ? (
               <div className="flex items-center gap-3">
                 <div className="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center text-stone-500 shrink-0">
-                  <Calendar size={16} />
+                  <Mail size={16} />
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[9px] font-bold text-stone-400 uppercase tracking-wider leading-none">

@@ -51,17 +51,6 @@ export interface AdminEvent {
   creatorEmail: string
 }
 
-// -------------- HELPER --------------
-
-// Busca o email real de um usu�rio via fun��o get_user_email() criada no banco.
-// Essa fun��o usa SECURITY DEFINER pra acessar auth.users sem expor a tabela
-// diretamente no frontend. Retorna string vazia em caso de erro.
-async function fetchUserEmail(userId: string): Promise<string> {
-  const client = requireSupabase()
-  const { data, error } = await client.rpc('get_user_email', { target_user_id: userId })
-  if (error || !data) return ''
-  return data as string
-}
 // ────────────── SERVICES ──────────────
 
 export async function getAdminMetrics() {
@@ -125,17 +114,13 @@ export async function listAdminSellers(): Promise<AdminSeller[]> {
     .from('seller_profiles')
     .select(`
       id, user_id, display_name, description, whatsapp_number, pix_key, pix_key_type,
-      location_name, latitude, longitude, is_published, created_at
+      location_name, latitude, longitude, is_published, created_at, email
     `)
     .order('created_at', { ascending: false })
 
   if (error) throw error
 
-  // Busca emails em paralelo pra n�o fazer uma request por vez (mais r�pido)
-  const sellers = data ?? []
-  const emails = await Promise.all(sellers.map(item => fetchUserEmail(item.user_id)))
-
-  return sellers.map((item, index) => ({
+  return (data ?? []).map(item => ({
     id: item.id,
     userId: item.user_id,
     displayName: item.display_name,
@@ -148,7 +133,7 @@ export async function listAdminSellers(): Promise<AdminSeller[]> {
     longitude: item.longitude ? Number(item.longitude) : null,
     isPublished: item.is_published,
     createdAt: item.created_at,
-    email: emails[index],
+    email: item.email ?? '',
   }))
 }
 
@@ -161,21 +146,15 @@ export async function listAdminProducts(): Promise<AdminProduct[]> {
       id, user_id, seller_id, category_id, name, description, price, unit,
       stock_status, status, created_at,
       categories(slug),
-      seller_profiles(display_name, user_id)
+      seller_profiles(display_name, email)
     `)
     .order('created_at', { ascending: false })
 
   if (error) throw error
 
-  const products = data ?? []
-
-  // Busca emails dos sellers em paralelo
-  const sellerEmails = await Promise.all(products.map(item => {
-    const sell = Array.isArray(item.seller_profiles) ? item.seller_profiles[0] : item.seller_profiles
-    return sell?.user_id ? fetchUserEmail(sell.user_id) : Promise.resolve('')
-  }))
-
-  return products.map((item, index) => {
+  return (data ?? []).map(item => {
+    // O supabase-js pode retornar joins como objeto ou array dependendo da versão.
+    // toSingle() normaliza os dois casos.
     const cat = Array.isArray(item.categories) ? item.categories[0] : item.categories
     const sell = Array.isArray(item.seller_profiles) ? item.seller_profiles[0] : item.seller_profiles
 
@@ -193,7 +172,7 @@ export async function listAdminProducts(): Promise<AdminProduct[]> {
       status: item.status,
       createdAt: item.created_at,
       sellerName: sell?.display_name ?? 'Desconhecido',
-      sellerEmail: sellerEmails[index],
+      sellerEmail: sell?.email ?? '',
     }
   })
 }
@@ -206,18 +185,13 @@ export async function listAdminEvents(): Promise<AdminEvent[]> {
     .select(`
       id, user_id, title, description, starts_at, ends_at,
       location_name, latitude, longitude, status, created_at,
-      profiles(full_name)
+      profiles(full_name, email)
     `)
     .order('created_at', { ascending: false })
 
   if (error) throw error
 
-  const events = data ?? []
-
-  // Busca emails dos criadores em paralelo
-  const creatorEmails = await Promise.all(events.map(item => fetchUserEmail(item.user_id)))
-
-  return events.map((item, index) => {
+  return (data ?? []).map(item => {
     const prof = Array.isArray(item.profiles) ? item.profiles[0] : item.profiles
 
     return {
@@ -233,7 +207,7 @@ export async function listAdminEvents(): Promise<AdminEvent[]> {
       status: item.status,
       createdAt: item.created_at,
       creatorName: prof?.full_name ?? 'Organizador',
-      creatorEmail: creatorEmails[index],
+      creatorEmail: prof?.email ?? '',
     }
   })
 }
@@ -269,4 +243,25 @@ export async function updateEventStatus(
     .eq('id', eventId)
 
   if (error) throw error
+}
+
+export async function sendEmailNotification(params: {
+  toEmail: string
+  subject: string
+  message: string
+  itemName: string
+}) {
+  const { data, error } = await requireSupabase().functions.invoke('send-email', {
+    body: {
+      to: params.toEmail,
+      subject: params.subject,
+      body: params.message,
+    },
+  })
+
+  if (error) {
+    throw new Error(`Erro ao enviar e-mail via Supabase Edge Function: ${error.message}`)
+  }
+
+  return data
 }

@@ -30,9 +30,9 @@ export function CalendarDashboard({ events }: CalendarDashboardProps) {
   })
 
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-3 md:gap-4">
       {/* Card 1: Hoje */}
-      <div className="flex flex-col gap-1 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]">
+      <div className="flex flex-col gap-1 md:gap-2 rounded-2xl border border-emerald-100 bg-emerald-50/50 p-3 md:p-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98]">
         <div className="flex items-center justify-between gap-1 text-emerald-700">
           <span className="text-xs font-bold uppercase tracking-wider">Hoje</span>
           <Star className="h-4 w-4 fill-emerald-600 text-emerald-600 animate-pulse" />
@@ -42,7 +42,7 @@ export function CalendarDashboard({ events }: CalendarDashboardProps) {
       </div>
 
       {/* Card 2: Este Mês */}
-      <div className="flex flex-col gap-1 rounded-2xl border border-amber-100 bg-amber-50/50 p-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]">
+      <div className="flex flex-col gap-1 md:gap-2 rounded-2xl border border-amber-100 bg-amber-50/50 p-3 md:p-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98]">
         <div className="flex items-center justify-between gap-1 text-amber-700">
           <span className="text-xs font-bold uppercase tracking-wider">Mês</span>
           <Calendar className="h-4 w-4 text-amber-600" />
@@ -52,7 +52,7 @@ export function CalendarDashboard({ events }: CalendarDashboardProps) {
       </div>
 
       {/* Card 3: Próximos */}
-      <div className="flex flex-col gap-1 rounded-2xl border border-stone-200 bg-stone-50/50 p-3 text-left transition-all hover:scale-[1.02] active:scale-[0.98]">
+      <div className="flex flex-col gap-1 md:gap-2 rounded-2xl border border-stone-200 bg-stone-50/50 p-3 md:p-4 text-left transition-all hover:scale-[1.02] active:scale-[0.98]">
         <div className="flex items-center justify-between gap-1 text-stone-600">
           <span className="text-xs font-bold uppercase tracking-wider">Agenda</span>
           <CheckCircle2 className="h-4 w-4 text-stone-500" />
