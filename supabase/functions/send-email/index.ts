@@ -48,25 +48,31 @@ serve(async (req) => {
           <style>
             body {
               font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-              background-color: #f5f5f4;
+              background-color: #F5F0E6; /* Cor Sand do front-end */
               margin: 0;
               padding: 0;
-              color: #292524;
+              color: #2D5A27; /* Cor principal */
             }
             .container {
               max-width: 600px;
               margin: 30px auto;
               background: #ffffff;
-              border-radius: 20px;
+              border-radius: 24px;
               overflow: hidden;
-              box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-              border: 1px solid #e7e5e4;
+              box-shadow: 0 10px 15px -3px rgba(45, 90, 39, 0.1), 0 4px 6px -4px rgba(45, 90, 39, 0.05);
+              border: 1px solid #E5DFD3;
             }
             .header {
-              background-color: #15803d; /* Verde institucional */
+              background-color: #2D5A27; /* Verde escuro --raizes-primary */
               color: #ffffff;
-              padding: 30px 20px;
+              padding: 35px 20px;
               text-align: center;
+              border-bottom: 4px solid #E8732E; /* Linha laranja --raizes-accent */
+            }
+            .header img {
+              max-height: 80px;
+              display: block;
+              margin: 0 auto 12px auto;
             }
             .header h1 {
               margin: 0;
@@ -77,16 +83,21 @@ serve(async (req) => {
             }
             .content {
               padding: 40px 30px;
-              line-height: 1.6;
+              line-height: 1.7;
               font-size: 15px;
+              color: #3F3F46;
+            }
+            .content p {
+              margin-top: 0;
+              margin-bottom: 16px;
             }
             .footer {
-              background-color: #fafaf9;
-              padding: 20px;
+              background-color: #FAF6EE;
+              padding: 25px;
               text-align: center;
               font-size: 11px;
-              color: #78716c;
-              border-top: 1px solid #e7e5e4;
+              color: #7E7C77;
+              border-top: 1px solid #E5DFD3;
             }
             .footer p {
               margin: 5px 0;
@@ -96,6 +107,7 @@ serve(async (req) => {
         <body>
           <div class="container">
             <div class="header">
+              <img src="https://ngxclqhopsrzvyasbtcj.supabase.co/storage/v1/object/public/avatars/logo.png" alt="Logo Raízes do Araguaia" />
               <h1>Plataforma Raízes do Araguaia</h1>
             </div>
             <div class="content">
