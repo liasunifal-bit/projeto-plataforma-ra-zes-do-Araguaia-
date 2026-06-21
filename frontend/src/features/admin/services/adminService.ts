@@ -251,37 +251,17 @@ export async function sendEmailNotification(params: {
   message: string
   itemName: string
 }) {
-  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-  const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-
-  if (!serviceId || !templateId || !publicKey) {
-    console.warn(
-      'EmailJS não configurado. Adicione VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID e VITE_EMAILJS_PUBLIC_KEY em .env.local'
-    )
-    return
-  }
-
-  const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const { data, error } = await requireSupabase().functions.invoke('send-email', {
+    body: {
+      to: params.toEmail,
+      subject: params.subject,
+      body: params.message,
     },
-    body: JSON.stringify({
-      service_id: serviceId,
-      template_id: templateId,
-      user_id: publicKey,
-      template_params: {
-        to_email: params.toEmail,
-        subject: params.subject,
-        message: params.message,
-        item_name: params.itemName,
-      },
-    }),
   })
 
-  if (!response.ok) {
-    const errorText = await response.text()
-    throw new Error(`Erro ao enviar e-mail via EmailJS: ${errorText}`)
+  if (error) {
+    throw new Error(`Erro ao enviar e-mail via Supabase Edge Function: ${error.message}`)
   }
+
+  return data
 }
