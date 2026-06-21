@@ -29,7 +29,7 @@ export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
   const { user, session } = useAuth()
   const navigate = useNavigate()
 
-  const [interactionMetrics, setInteractionMetrics] = useState<number[]>([])
+  const [, setInteractionMetrics] = useState<number[]>([])
   const [isDiagnosticMode, setDiagnosticMode] = useState(false)
 
   const handleLogoInteraction = () => {
