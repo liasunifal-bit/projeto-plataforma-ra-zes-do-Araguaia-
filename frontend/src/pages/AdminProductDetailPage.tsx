@@ -180,6 +180,7 @@ export default function AdminProductDetailPage() {
                   {product.sellerName || 'Nao informado'}
                 </span>
               </div>
+            </div>
             {/* Email — só exibe se tiver valor */}
             {product.sellerEmail ? (
               <div className="flex items-center gap-3">
