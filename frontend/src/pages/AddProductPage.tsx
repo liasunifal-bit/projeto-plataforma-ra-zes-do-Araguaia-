@@ -44,7 +44,6 @@ export default function AddProductPage() {
         price: Number(form.get('price')),
         unit: String(form.get('unit') || ''),
         locationName: String(form.get('location')),
-        publish: false, // produto nasce como draft — aguarda aprovação do admin
       })
 
       const image = form.get('image')
