@@ -84,9 +84,9 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
   }
 
   return (
-    <div className="flex flex-col gap-6 md:gap-8">
+    <div className="flex flex-col gap-6">
       {/* ────────────── PREVIEW EM TEMPO REAL ────────────── */}
-      <section aria-label="Pré-visualização do Evento" className="flex flex-col gap-3 md:gap-4">
+      <section aria-label="Pré-visualização do Evento" className="flex flex-col gap-3">
         <div className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider text-emerald-600">
           <Sparkles className="h-4 w-4" />
           <span>Pré-visualização em tempo real</span>
@@ -95,7 +95,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
       </section>
 
       {/* ────────────── FORMULÁRIO ────────────── */}
-      <form onSubmit={handleSubmit} className="flex flex-col gap-5 md:gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5">
         {errorMessage && (
           <div role="alert" className="flex items-start gap-3 rounded-2xl border border-destructive/20 bg-destructive/10 p-4 text-xs font-semibold text-destructive">
             <AlertCircle className="h-5 w-5 shrink-0" />
@@ -163,7 +163,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
         />
 
         {/* 5. Coordenadas Exibidas (Read-only) */}
-        <div className="grid grid-cols-2 gap-3 md:gap-4 bg-stone-50 p-4 md:p-5 rounded-2xl border border-stone-100">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 bg-stone-50 p-4 rounded-2xl border border-stone-100">
           <div className="flex flex-col gap-1">
             <span className="text-[10px] font-black uppercase text-stone-400">Latitude</span>
             <input
@@ -185,7 +185,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
         </div>
 
         {/* 6. Datas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="event-starts" className="text-xs font-black text-stone-700 uppercase tracking-wider flex items-center gap-1">
               <Calendar className="h-4 w-4 text-stone-400" />
@@ -217,7 +217,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
         </div>
 
         {/* 7. Categoria e Status */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
           <div className="flex flex-col gap-1.5">
             <label htmlFor="event-category" className="text-xs font-black text-stone-700 uppercase tracking-wider">
               Categoria
@@ -256,7 +256,7 @@ export function EventForm({ onSubmitSuccess }: EventFormProps) {
         <button
           type="submit"
           disabled={isPending}
-          className="mt-4 md:mt-6 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 py-3.5 md:py-4 text-center text-sm md:text-base font-bold text-white transition-all active:scale-95 shadow-sm flex items-center justify-center gap-2"
+          className="mt-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 disabled:opacity-50 py-3.5 text-center text-sm font-bold text-white transition-all active:scale-95 shadow-sm flex items-center justify-center gap-2"
         >
           {isPending ? 'Salvando Evento...' : 'Cadastrar Evento Comunitário'}
         </button>

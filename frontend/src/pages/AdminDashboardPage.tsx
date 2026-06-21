@@ -101,10 +101,10 @@ export default function AdminDashboardPage() {
       <AdminHeader />
 
       {/* Conteúdo Principal */}
-      <main className="flex flex-col gap-7 md:gap-8 px-4 md:px-6 pt-6 md:pt-8 pb-6 md:pb-8 overflow-y-auto font-sans bg-stone-50/50">
+      <main className="flex flex-col gap-7 px-4 pt-6 pb-6 overflow-y-auto font-sans bg-stone-50/50 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         
         {/* Seção 1 — Saudação */}
-        <section className="flex items-center justify-between bg-white border border-border/40 p-4 md:p-5 rounded-3xl shadow-xs">
+        <section className="flex items-center justify-between bg-white border border-border/40 p-4 rounded-3xl shadow-xs">
           <div className="flex flex-col gap-1 text-left">
             <span className="bg-[#2D5A27]/10 text-[#2D5A27] text-[10px] font-black uppercase tracking-wider px-2 py-0.5 rounded-md self-start">
               Painel Administrativo
@@ -130,7 +130,7 @@ export default function AdminDashboardPage() {
             Métricas Gerais
           </h3>
           
-          <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(8rem,1fr))] gap-3">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:gap-4">
             {/* Total Vendedores */}
             <div className="bg-white border-l-4 border-l-[#1E5F8B] border border-border/40 rounded-2xl p-4 flex flex-col gap-1 text-left relative overflow-hidden shadow-xs">
               <div className="flex items-center justify-between text-[#1E5F8B]">
@@ -186,7 +186,7 @@ export default function AdminDashboardPage() {
         </section>
 
         {/* Seção 3 — Análise da Plataforma (Gráfico) */}
-        <section className="bg-white border border-border/40 p-5 md:p-6 rounded-3xl shadow-xs flex flex-col gap-4 md:gap-5 text-left">
+        <section className="bg-white border border-border/40 p-5 rounded-3xl shadow-xs flex flex-col gap-4 text-left">
           <div className="flex items-center justify-between">
             <h3 className="font-heading font-bold text-stone-800 text-sm uppercase tracking-wider">
               Análise Geral
@@ -204,7 +204,7 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Gráfico de Anéis SVG Customizado */}
-          <div className="flex items-center justify-around gap-2 md:gap-6 pt-2">
+          <div className="flex items-center justify-around gap-2 pt-2 md:justify-center md:gap-10">
             <div className="relative w-28 h-28 flex items-center justify-center shrink-0">
               <svg className="w-full h-full -rotate-90" viewBox="0 0 120 120">
                 {/* Background Circle */}
@@ -291,7 +291,7 @@ export default function AdminDashboardPage() {
         </section>
 
         {/* Seção 4 — Produtos por Categoria */}
-        <section className="bg-white border border-border/40 p-5 md:p-6 rounded-3xl shadow-xs flex flex-col gap-4 md:gap-5 text-left">
+        <section className="bg-white border border-border/40 p-5 rounded-3xl shadow-xs flex flex-col gap-4 text-left">
           <h3 className="font-heading font-bold text-stone-800 text-sm uppercase tracking-wider">
             Produtos por Categoria
           </h3>
@@ -328,7 +328,7 @@ export default function AdminDashboardPage() {
             Filas de Análise
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-3">
+          <div className="flex flex-col gap-3 lg:grid lg:grid-cols-3">
             {/* Vendedores Card */}
             <Link 
               to="/admin/vendedores"

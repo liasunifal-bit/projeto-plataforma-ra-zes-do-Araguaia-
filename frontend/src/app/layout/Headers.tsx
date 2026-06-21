@@ -12,12 +12,12 @@ type HeaderProps = {
 
 export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
   return (
-    <header className="bg-primary text-white pt-6 md:pt-8 pb-8 md:pb-10 px-5 md:px-8 rounded-b-[2.5rem] shadow-md flex flex-col gap-4 md:gap-5">
-      <div className="flex items-center gap-3.5 md:gap-5">
+    <header className="bg-primary text-white pt-6 pb-8 px-5 rounded-b-[2.5rem] shadow-md flex flex-col gap-4 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+      <div className="flex items-center gap-3.5">
         <img
           src={logo}
           alt="Logo Raízes do Araguaia"
-          className="w-16 h-16 md:w-20 md:h-20 rounded-full object-contain bg-white p-1 shrink-0"
+          className="w-16 h-16 rounded-full object-contain bg-white p-1 shrink-0"
         />
 
         <h1
@@ -28,7 +28,7 @@ export function Header({ title = 'Raízes do Araguaia' }: HeaderProps) {
         </h1>
       </div>
 
-      <p className="text-white/80 text-sm md:text-base font-medium leading-relaxed max-w-[90%] md:max-w-2xl">
+      <p className="text-white/80 text-sm font-medium leading-relaxed max-w-[90%]">
         Encontre produtos frescos e artesanato da nossa gente
       </p>
     </header>

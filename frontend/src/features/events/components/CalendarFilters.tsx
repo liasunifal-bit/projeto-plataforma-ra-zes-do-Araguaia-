@@ -52,7 +52,7 @@ export function CalendarFilters({
   }
 
   return (
-    <div className="flex flex-col gap-3 md:gap-4">
+    <div className="flex flex-col gap-3">
       {/* Input de Busca */}
       <div className="relative flex items-center">
         <span className="absolute left-4 text-stone-400">
@@ -78,7 +78,7 @@ export function CalendarFilters({
       </div>
 
       {/* Dropdowns de Filtro */}
-      <div className="grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-2 md:gap-3">
+      <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
         {/* Filtro de Mês */}
         <div className="relative flex items-center">
           <span className="absolute left-3 text-stone-500 pointer-events-none">

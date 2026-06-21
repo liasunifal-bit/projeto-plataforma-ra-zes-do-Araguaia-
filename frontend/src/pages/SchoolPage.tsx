@@ -22,13 +22,13 @@ export default function SchoolPage() {
   return (
     <AppShell>
       <Header title="Escolinha" />
-      <main className="flex flex-1 flex-col gap-4 md:gap-6 overflow-y-auto p-5 md:p-8">
-        <h1 className="font-heading text-2xl md:text-3xl font-bold">Licoes</h1>
+      <main className="flex flex-1 flex-col gap-4 overflow-y-auto p-5 md:p-6 lg:p-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+        <h1 className="font-heading text-2xl font-bold">Licoes</h1>
         <p>Progresso: {progress}%</p>
         <progress value={progress} max={100} className="w-full" />
         {lessons.length === 0 && <p>Nenhuma licao publicada no momento.</p>}
         {lessons.map((lesson) => (
-          <article key={lesson.id} className="flex items-center justify-between gap-3 md:gap-5 rounded-2xl border bg-white p-4 md:p-5">
+          <article key={lesson.id} className="flex items-center justify-between gap-3 rounded-2xl border bg-white p-4">
             <h2 className="font-bold">{lesson.title}</h2>
             <button
               disabled={lesson.completed}

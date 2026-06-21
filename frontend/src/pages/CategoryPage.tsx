@@ -29,12 +29,12 @@ export default function CategoryPage() {
     <AppShell>
       <PageHeader title={category?.label ?? 'Categoria'} />
 
-      <main className="flex flex-1 flex-col gap-6 md:gap-8 overflow-y-auto px-4 md:px-6 pb-6 md:pb-8 pt-6 md:pt-8">
-        <header className="flex flex-col gap-2 md:max-w-2xl">
+      <main className="flex flex-1 flex-col gap-6 overflow-y-auto px-4 pb-6 pt-6 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
+        <header className="flex flex-col gap-2">
           <p className="text-xs font-bold uppercase tracking-wider text-primary">
             Marketplace Comunitario
           </p>
-          <h1 className="font-heading text-2xl md:text-3xl font-bold leading-tight text-foreground">
+          <h1 className="font-heading text-2xl font-bold leading-tight text-foreground">
             {category?.label}
           </h1>
           <p className="text-sm font-medium leading-relaxed text-foreground/60">

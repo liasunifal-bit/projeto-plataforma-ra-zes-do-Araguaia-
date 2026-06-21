@@ -18,8 +18,8 @@ export default function OnboardingPage() {
   return (
     <AppShell>
       <PageHeader title="Minha conta" />
-      <main className="mx-auto flex w-full max-w-md md:max-w-xl flex-1 flex-col gap-5 md:gap-6 p-5 md:p-8">
-        <h1 className="font-heading text-2xl md:text-3xl font-bold">Bem-vindo ao Raizes do Araguaia</h1>
+      <main className="mx-auto flex w-full max-w-md flex-1 flex-col gap-5 p-5 md:max-w-3xl md:p-6 lg:max-w-screen-xl lg:p-8 2xl:max-w-screen-2xl">
+        <h1 className="font-heading text-2xl font-bold">Bem-vindo ao Raizes do Araguaia</h1>
         {isLoading ? (
           <p
             aria-live="polite"

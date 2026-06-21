@@ -75,7 +75,7 @@ export default function AdminProductDetailPage() {
     return (
       <AppShell>
         <PageHeader title="Carregando..." />
-        <div className="flex-1 flex items-center justify-center text-stone-400 font-bold text-sm md:text-base">
+        <div className="flex-1 flex items-center justify-center text-stone-400 font-bold text-sm">
           Carregando dados...
         </div>
       </AppShell>
@@ -86,7 +86,7 @@ export default function AdminProductDetailPage() {
     return (
       <AppShell>
         <PageHeader title="Produto não encontrado" />
-        <div className="flex-1 flex flex-col items-center justify-center p-8 md:p-10 text-stone-400 font-bold text-sm md:text-base">
+        <div className="flex-1 flex flex-col items-center justify-center p-8 text-stone-400 font-bold text-sm">
           Produto não localizado ou excluído.
         </div>
       </AppShell>
@@ -97,7 +97,7 @@ export default function AdminProductDetailPage() {
     <AppShell>
       <PageHeader title="Ficha do Produto" />
 
-      <main className="flex-1 flex flex-col gap-6 md:gap-8 px-4 md:px-6 pt-6 md:pt-8 pb-6 md:pb-8 overflow-y-auto bg-stone-50/50">
+      <main className="flex-1 flex flex-col gap-6 px-4 pt-6 pb-6 overflow-y-auto bg-stone-50/50 md:px-6 lg:px-8 xl:mx-auto xl:w-full xl:max-w-screen-xl 2xl:max-w-screen-2xl">
         
         {/* Imagem do Produto */}
         <section className="w-full aspect-video rounded-3xl bg-stone-100 flex flex-col items-center justify-center text-stone-400 border border-stone-200/50 shadow-xs relative overflow-hidden select-none">
@@ -108,7 +108,7 @@ export default function AdminProductDetailPage() {
         </section>
 
         {/* Informações Principais */}
-        <section className="bg-white border border-border/40 p-5 md:p-6 rounded-3xl shadow-xs flex flex-col gap-3.5 md:gap-4 text-left">
+        <section className="bg-white border border-border/40 p-5 rounded-3xl shadow-xs flex flex-col gap-3.5 text-left">
           <div className="flex justify-between items-start gap-2">
             <div>
               <span className="text-[10px] font-extrabold uppercase tracking-wider text-primary">
@@ -148,7 +148,7 @@ export default function AdminProductDetailPage() {
         </section>
 
         {/* Áudio de Descrição */}
-        <section className="bg-white border border-border/40 p-5 md:p-6 rounded-3xl shadow-xs flex flex-col gap-3 md:gap-4 text-left">
+        <section className="bg-white border border-border/40 p-5 rounded-3xl shadow-xs flex flex-col gap-3 text-left">
           <h3 className="font-heading font-bold text-stone-800 text-xs uppercase tracking-wider">
             Recurso de Acessibilidade
           </h3>
@@ -167,12 +167,12 @@ export default function AdminProductDetailPage() {
         </section>
 
         {/* Detalhes do Vendedor */}
-        <section className="bg-white border border-border/40 p-5 md:p-6 rounded-3xl shadow-xs flex flex-col gap-4 md:gap-5 text-left">
+        <section className="bg-white border border-border/40 p-5 rounded-3xl shadow-xs flex flex-col gap-4 text-left">
           <h3 className="font-heading font-bold text-stone-800 text-xs uppercase tracking-wider">
             Proprietário & Cadastro
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-[repeat(auto-fit,minmax(14rem,1fr))] gap-3.5">
+          <div className="flex flex-col gap-3.5">
             {/* Vendedor */}
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-stone-100 flex items-center justify-center text-stone-500 shrink-0">
@@ -217,7 +217,7 @@ export default function AdminProductDetailPage() {
         </section>
 
         {/* Ações de Aprovação / Reprovação */}
-        <div className="flex flex-col md:flex-row gap-3 mt-2">
+        <div className="flex gap-3 mt-2">
           <button
             type="button"
             onClick={() => handleActionClick('reject')}

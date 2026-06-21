@@ -11,9 +11,6 @@ const fallback = (
   </div>
 )
 
-// Page envolve cada componente em Suspense para suportar lazy loading.
-// O navegador só baixa o código de cada página quando o usuário navega
-// pra ela, em vez de baixar tudo de uma vez no carregamento inicial.
 const Page = ({ component: C }: { component: React.ComponentType }) => (
   <Suspense fallback={fallback}>
     <C />
@@ -51,7 +48,7 @@ export const appRouter = createBrowserRouter([
     path: appRoutes.home,
     errorElement: <ErrorBoundary />,
     children: [
-      // ── Públicas ────────────────────────────────────────────────────────
+      // ── Públicas ─────────────────────────────────────────────────────────
       { index: true, element: <Page component={HomePage} /> },
       { path: appRoutes.catalog, element: <Page component={CatalogPage} /> },
       { path: appRoutes.category, element: <Page component={CategoryPage} /> },
@@ -61,7 +58,7 @@ export const appRouter = createBrowserRouter([
       { path: appRoutes.school, element: <Page component={SchoolPage} /> },
       { path: appRoutes.onboarding, element: <Page component={OnboardingPage} /> },
 
-      // ── Protegidas (login obrigatório) ───────────────────────────────────
+      // ── Protegidas (login obrigatório) ────────────────────────────────────
       {
         path: appRoutes.addProduct,
         element: (
@@ -87,7 +84,9 @@ export const appRouter = createBrowserRouter([
         ),
       },
 
-      // ── Admin (login obrigatório — role 'admin' verificado via PermissionGate) ──
+      // ── Admin (login + role 'admin' obrigatórios) ─────────────────────────
+      // ProtectedRoute → verifica se está LOGADO
+      // PermissionGate → verifica se tem role 'admin'
       {
         path: appRoutes.admin,
         element: (

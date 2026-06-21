@@ -14,7 +14,7 @@ export function ProductGrid({
     return (
       <section
         aria-live="polite"
-        className="col-span-2 md:col-span-full flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border/40 bg-white py-10 md:py-12 text-foreground/45"
+        className="col-span-2 md:col-span-3 lg:col-span-4 xl:col-span-5 2xl:col-span-6 flex flex-col items-center justify-center gap-2 rounded-2xl border border-dashed border-border/40 bg-white py-10 text-foreground/45"
       >
         <p className="text-sm font-bold text-foreground">Sem produtos por aqui</p>
         <p className="max-w-64 text-center text-xs font-medium leading-relaxed">{emptyMessage}</p>
@@ -23,7 +23,7 @@ export function ProductGrid({
   }
 
   return (
-    <section aria-label="Lista de produtos" className="grid grid-cols-2 md:grid-cols-[repeat(auto-fit,minmax(10rem,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(12rem,1fr))] gap-4 md:gap-5">
+    <section aria-label="Lista de produtos" className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
       {products.map((product) => (
         <ProductCard key={product.id} product={product} />
       ))}
