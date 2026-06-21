@@ -27,6 +27,8 @@ serve(async (req) => {
     const smtpUser = Deno.env.get("SMTP_USER");
     const smtpPass = Deno.env.get("SMTP_PASS"); // App Password do Gmail do admin
 
+    console.log(`Diagnostic: Host=${smtpHost}, Port=${smtpPort}, User="${smtpUser}", PassLength=${smtpPass?.length}, PassDefined=${!!smtpPass}`);
+
     if (!smtpUser || !smtpPass) {
       return new Response(
         JSON.stringify({ error: "SMTP credentials (SMTP_USER/SMTP_PASS) not configured in Supabase Secrets" }),
